@@ -8,11 +8,15 @@ public class Course {
     private String name;
     private String description;
     private String url;
+    private String subject;
+    private String teacher;
 
-    public Course(int id, String name, String description, String url) {
+    public Course(int id, String name, String description, String url, String subject, String teacher) {
         this.id = id;
         this.name = name;
         this.description = description;
+        this.subject = subject;
+        this.teacher = teacher;
         this.url = url;
     }
 
@@ -47,4 +51,22 @@ public class Course {
     public void setUrl(String url) {
         this.url = url;
     }
+
+    public void setSubject(String url) {
+        this.subject = subject;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setTeacher(String teacher) {
+        this.teacher = teacher;
+    }
+
+    public String getTeacher() {
+        return teacher;
+    }
+
+
 }

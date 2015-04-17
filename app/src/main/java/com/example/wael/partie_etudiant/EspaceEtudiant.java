@@ -49,7 +49,7 @@ public class EspaceEtudiant extends ActionBarActivity
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
 
-        String str = "lool";
+        String str = "My space";
         mTitle = str.subSequence(0,4);
         // Set up the drawer.
         mNavigationDrawerFragment.setUp(

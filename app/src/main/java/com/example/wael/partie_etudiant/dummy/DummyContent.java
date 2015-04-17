@@ -28,15 +28,10 @@ public class DummyContent {
         addItem(new DummyItem("1", "Test menu 1"));
         addItem(new DummyItem("2", "Test menu 2"));
         addItem(new DummyItem("3", "Test menu 3"));
-
         addItem(new DummyItem("4", "Test menu 4"));
-
         addItem(new DummyItem("5", "Test menu 5"));
-
         addItem(new DummyItem("6", "Test menu 6"));
-
         addItem(new DummyItem("7", "Test menu 7"));
-
         addItem(new DummyItem("8", "Test menu 8"));
     }
 
@@ -45,13 +40,12 @@ public class DummyContent {
         ITEM_MAP.put(item.id, item);
     }
 
-    /**
+    /*
      * A dummy item representing a piece of content.
      */
     public static class DummyItem {
         public String id;
         public String content;
-
         public DummyItem(String id, String content) {
             this.id = id;
             this.content = content;

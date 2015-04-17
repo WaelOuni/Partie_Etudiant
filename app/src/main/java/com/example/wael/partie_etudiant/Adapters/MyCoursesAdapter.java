@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import com.example.wael.partie_etudiant.Models.Course;
 import com.example.wael.partie_etudiant.R;
@@ -18,12 +19,12 @@ import java.util.List;
 public class MyCoursesAdapter  extends ArrayAdapter<Course> {
 
     private Context context;
-    private List<Course> courseList;
+    private List<Course> CourseList;
 
     public MyCoursesAdapter(Context context, int resource, List<Course> objects) {
         super(context, resource, objects);
         this.context = context;
-        this.courseList = objects;
+        this.CourseList = objects;
     }
 
     @Override
@@ -31,25 +32,13 @@ public class MyCoursesAdapter  extends ArrayAdapter<Course> {
         LayoutInflater inflater = (LayoutInflater)context
                 .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 
-        final Course course = courseList.get(position);
+        final Course course = CourseList.get(position);
         View view = inflater.inflate(R.layout.item_course, parent, false);
-      /*  TextView tx =(TextView)view.findViewById(R.id.textView);
-        TextView tx2 =(TextView)view.findViewById(R.id.textView2);
-        tx.setText(course.getName());
-        tx2.setText(course.getDescription());
+        TextView tx =(TextView)view.findViewById(R.id.subject_name);
+        TextView tx2 =(TextView)view.findViewById(R.id.teacher_name);
+        tx.setText(course.getSubject());
+        tx2.setText(course.getTeacher());
 
-        Button bt = (Button)view.findViewById(R.id.button2);
-        bt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i("test inside item", course.getName().toString());
-            }
-        });
-        ImageView im = (ImageView)view.findViewById(R.id.imageView);
-        im.setImageBitmap(course.getBitmap());*/
-
-
-     //   return view;
-        return null;
+        return view;
     }
 }
