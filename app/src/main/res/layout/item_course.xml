@@ -28,7 +28,7 @@
                 android:id="@+id/subject_name" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="125dp"
                 android:layout_height="wrap_content"
                 android:text="Medium Text"
                 android:textAppearance="?android:attr/textAppearanceMedium"
