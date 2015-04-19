@@ -49,8 +49,7 @@ public class EspaceEtudiant extends ActionBarActivity
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
 
-        String str = "My space";
-        mTitle = str.subSequence(0,4);
+        String str = "Student space";
         // Set up the drawer.
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
@@ -122,8 +121,6 @@ public class EspaceEtudiant extends ActionBarActivity
 
     public void onSectionAttached(int number) {
 
-        Toast toast = Toast.makeText(this, "Wheeeeeee!"+ number, Toast.LENGTH_SHORT);
-        toast.show();
         switch (number) {
             case 1:
                 mTitle = getString(R.string.title_section1);

@@ -1,5 +1,7 @@
 package com.example.wael.partie_etudiant.Models;
 
+import java.util.Date;
+
 /**
  * Created by Wael on 01/04/2015.
  */
@@ -10,15 +12,18 @@ public class Course {
     private String url;
     private String subject;
     private String teacher;
+    private Date dateDepo;
 
-    public Course(int id, String name, String description, String url, String subject, String teacher) {
+    public Course(int id, String name, String description, String url, String subject, String teacher, Date dateDepo) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.subject = subject;
         this.teacher = teacher;
         this.url = url;
+        this.dateDepo=dateDepo;
     }
+
 
     public int getId() {
         return id;
@@ -66,6 +71,13 @@ public class Course {
 
     public String getTeacher() {
         return teacher;
+    }
+    public Date getDateDepo() {
+        return dateDepo;
+    }
+
+    public void setDateDepo(Date dateDepo) {
+        this.dateDepo = dateDepo;
     }
 
 

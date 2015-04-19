@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.example.wael.partie_etudiant.CoursesFragment">
+
+    <TextView android:id="@android:id/empty" android:layout_width="match_parent"
+        android:layout_height="45dp" android:gravity="center"
+        android:textColor="#ff8f4206"
+        android:text="Choose subject"
+        android:textSize="@dimen/abc_text_size_large_material" />
 
     <ListView android:id="@android:id/list" android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <TextView android:id="@android:id/empty" android:layout_width="match_parent"
-        android:layout_height="match_parent" android:gravity="center" />
-
-</FrameLayout>
+</LinearLayout>

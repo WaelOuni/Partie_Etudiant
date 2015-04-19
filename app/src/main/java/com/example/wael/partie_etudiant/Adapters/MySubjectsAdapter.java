@@ -16,12 +16,12 @@ import java.util.List;
 /**
  * Created by Wael on 16/04/2015.
  */
-public class MyCoursesAdapter extends ArrayAdapter<Course> {
+public class MySubjectsAdapter extends ArrayAdapter<Course> {
 
     private Context context;
     private List<Course> CourseList;
 
-    public MyCoursesAdapter(Context context, int resource, List<Course> objects) {
+    public MySubjectsAdapter(Context context, int resource, List<Course> objects) {
         super(context, resource, objects);
         this.context = context;
         this.CourseList = objects;
@@ -31,12 +31,16 @@ public class MyCoursesAdapter extends ArrayAdapter<Course> {
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater)context
                 .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+
         final Course course = CourseList.get(position);
-        View view = inflater.inflate(R.layout.item_course, parent, false);
-        TextView tx =(TextView)view.findViewById(R.id.course_name);
-        TextView tx2 =(TextView)view.findViewById(R.id.date_depo_course);
-        tx.setText(course.getName());
-        tx2.setText("downloaded at : "+course.getDateDepo().toString());
+        View view = inflater.inflate(R.layout.item_subject, parent, false);
+
+        TextView tx =(TextView)view.findViewById(R.id.subject_name);
+        TextView tx2 =(TextView)view.findViewById(R.id.teacher_name);
+
+        tx.setText(course.getSubject());
+        tx2.setText(course.getTeacher());
+
         return view;
     }
 }

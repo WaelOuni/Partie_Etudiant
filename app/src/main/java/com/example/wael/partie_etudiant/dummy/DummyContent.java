@@ -1,6 +1,9 @@
 package com.example.wael.partie_etudiant.dummy;
 
+import com.example.wael.partie_etudiant.Models.Course;
+
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +20,35 @@ public class DummyContent {
      * An array of sample (dummy) items.
      */
     public static List<DummyItem> ITEMS = new ArrayList<DummyItem>();
+    public static ArrayList<Course> courses = new ArrayList<Course>() ;
+
+
+    static {
+
+
+
+
+
+        Course c1 = new Course(0, "Theoremes de pytaghore pour le triangle ", "theoreme tres connus pour le class de bacc", "http://math.bac.pythagore.json", "mathematique pour le bac ", "abdlbasst eben hamdouaaaaa", new Date(2015,05,07));
+
+        Course c2 = new Course(1, "calcul geometrique dans le plan (O,I,J)", "differentes régles pour le calcul de surfaces et le perimetre du formes geometrique ", "http://math.6emeSecond/calcGeo.json", "math 6éme primaire", "imen benn farhat", new Date(2015,04,18));
+
+        Course c3 = new Course(2, "manipuler entiers complexes", "definition de plan complexe (O, I, J, Z) et les regles de calcul complexes ", "http://math.bac/complexe.json", "mathematique pour le bac", "wael Ouni", new Date(2015,04,01));
+
+        Course c4 = new Course(3, "formules trigonométriques", "les differents formules trigoometriques pour les calculs angulaires ", "http://math.2emeSecondaire/trigonoetrie.json", "math pour le 2eme secondaire", "hachem rmida ", new Date(2015,07,19));
+
+        Course c5 = new Course(0, "formes canoniques", "etudes pour les formes canoniques( elipse,spherique ...) dans l'espace ", "http://math.bac/formesCanoniques.json", "math pour le bacc", "Hamdi zinedin", new Date(2015,02,27));
+
+        Course c6 = new Course(1, "variables inconnues d'une equation", "la maniere de calcul les valeurs de variables inconuue dans une equation", "http://math.1ereSec/calculCarInconue.json", "math niveau 1ere Secondaire", "Omar jmal", new Date(2015,11,11));
+
+        courses.add(c1);
+        courses.add(c2);
+        courses.add(c3);
+        courses.add(c4);
+
+        courses.add(c5);
+        courses.add(c6);
+    }
 
     /**
      * A map of sample (dummy) items, by ID.
@@ -25,14 +57,9 @@ public class DummyContent {
 
     static {
         // Add 3 sample items.
-        addItem(new DummyItem("1", "Test menu 1"));
-        addItem(new DummyItem("2", "Test menu 2"));
-        addItem(new DummyItem("3", "Test menu 3"));
-        addItem(new DummyItem("4", "Test menu 4"));
-        addItem(new DummyItem("5", "Test menu 5"));
-        addItem(new DummyItem("6", "Test menu 6"));
-        addItem(new DummyItem("7", "Test menu 7"));
-        addItem(new DummyItem("8", "Test menu 8"));
+        addItem(new DummyItem("1", "Item 1"));
+        addItem(new DummyItem("2", "Item 2"));
+        addItem(new DummyItem("3", "Item 3"));
     }
 
     private static void addItem(DummyItem item) {
@@ -40,12 +67,13 @@ public class DummyContent {
         ITEM_MAP.put(item.id, item);
     }
 
-    /*
+    /**
      * A dummy item representing a piece of content.
      */
     public static class DummyItem {
         public String id;
         public String content;
+
         public DummyItem(String id, String content) {
             this.id = id;
             this.content = content;

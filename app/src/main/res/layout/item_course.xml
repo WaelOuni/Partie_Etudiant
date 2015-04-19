@@ -1,39 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
+    android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="1">
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="wrap_content">
 
         <ImageView
-            android:layout_width="127dp"
-            android:layout_height="81dp"
+            android:layout_width="110dp"
+            android:layout_height="70dp"
             android:id="@+id/imageView"
-            android:src="#ffff3000" />
+            android:src="@drawable/profile"
+            android:background="#ffbeae00" />
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="206dp"
-            android:layout_height="92dp">
+            android:layout_width="match_parent"
+            android:layout_height="77dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="New Text"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:id="@+id/subject_name" />
+                android:id="@+id/course_name"
+                android:layout_marginLeft="22dp"/>
 
             <TextView
-                android:layout_width="125dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Medium Text"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/teacher_name" />
+                android:id="@+id/date_depo_course"
+                android:layout_marginLeft="22dp"/>
         </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.29"
+        android:weightSum="1">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:text="View"
+            android:id="@+id/view_course"
+            android:layout_marginLeft="22dp"
+            android:layout_weight="0.15"
+            android:background="#ff00a0c0" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:text="Download"
+            android:id="@+id/download_course"
+            android:layout_marginLeft="44dp"
+            android:layout_weight="0.11"
+            android:background="#ff005da3" />
     </LinearLayout>
 
 </LinearLayout>
