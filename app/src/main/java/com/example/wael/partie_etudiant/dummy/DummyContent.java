@@ -1,6 +1,7 @@
 package com.example.wael.partie_etudiant.dummy;
 
 import com.example.wael.partie_etudiant.Models.Course;
+import com.example.wael.partie_etudiant.Models.Etudiant;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -24,10 +25,17 @@ public class DummyContent {
 
 
     static {
+        /**
+         * A map of sample (students) items, by ID.
+         */
+
+        Etudiant e1 = new Etudiant(14207208,"Ouni", "Wael",1, "homme", "waelounie@gmail.com", "+21699663587","bac", "1234567859");
 
 
 
-
+        /**
+         * A map of sample (Courses) items, by ID.
+         */
 
         Course c1 = new Course(0, "Theoremes de pytaghore pour le triangle ", "theoreme tres connus pour le class de bacc", "http://math.bac.pythagore.json", "mathematique pour le bac ", "abdlbasst eben hamdouaaaaa", new Date(2015,05,07));
 

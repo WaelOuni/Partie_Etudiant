@@ -44,7 +44,7 @@ public class EspaceEtudiant extends ActionBarActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_espace_etudiant2);
+        setContentView(R.layout.activity_espace_etudiant);
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
@@ -225,7 +225,7 @@ public class EspaceEtudiant extends ActionBarActivity
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_espace_etudiant2, container, false);
+            View rootView = inflater.inflate(R.layout.fragment_espace_etudiant, container, false);
             return rootView;
         }
 

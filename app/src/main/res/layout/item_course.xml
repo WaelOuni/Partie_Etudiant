@@ -13,8 +13,7 @@
             android:layout_width="110dp"
             android:layout_height="70dp"
             android:id="@+id/imageView"
-            android:src="@drawable/profile"
-            android:background="#ffbeae00" />
+            android:src="@android:drawable/ic_menu_sort_alphabetically" />
 
         <LinearLayout
             android:orientation="vertical"
