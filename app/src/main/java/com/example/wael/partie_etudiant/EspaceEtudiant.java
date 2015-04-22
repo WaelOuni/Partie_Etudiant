@@ -1,6 +1,9 @@
 package com.example.wael.partie_etudiant;
 
 import android.app.Activity;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -185,6 +188,9 @@ public class EspaceEtudiant extends ActionBarActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        } else if (id==R.id.action_example){
+            getSupportFragmentManager().beginTransaction().replace(R.id.container, CoursesFragment.newInstance("Courses","")).commit();
+
         }
 
         return super.onOptionsItemSelected(item);
@@ -237,4 +243,18 @@ public class EspaceEtudiant extends ActionBarActivity
         }
     }
 
+
+    //////////////////////    functionn to tes if a connection with the local database exist or not  //////////////////////////////
+    protected boolean isOnline(){
+        ConnectivityManager cm = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        if (netInfo !=null && netInfo.isConnectedOrConnecting()){
+            return  true;
+        }else {
+            return false;
+        }
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }

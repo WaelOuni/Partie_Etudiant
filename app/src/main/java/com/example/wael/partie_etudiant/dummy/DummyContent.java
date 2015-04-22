@@ -4,7 +4,6 @@ import com.example.wael.partie_etudiant.Models.Course;
 import com.example.wael.partie_etudiant.Models.Etudiant;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,7 +36,7 @@ public class DummyContent {
          * A map of sample (Courses) items, by ID.
          */
 
-        Course c1 = new Course(0, "Theoremes de pytaghore pour le triangle ", "theoreme tres connus pour le class de bacc", "http://math.bac.pythagore.json", "mathematique pour le bac ", "abdlbasst eben hamdouaaaaa", new Date(2015,05,07));
+      /*  Course c1 = new Course(0, "Theoremes de pytaghore pour le triangle ", "theoreme tres connus pour le class de bacc", "http://math.bac.pythagore.json", "mathematique pour le bac ", "abdlbasst eben hamdouaaaaa", new Date(2015,05,07));
 
         Course c2 = new Course(1, "calcul geometrique dans le plan (O,I,J)", "differentes régles pour le calcul de surfaces et le perimetre du formes geometrique ", "http://math.6emeSecond/calcGeo.json", "math 6éme primaire", "imen benn farhat", new Date(2015,04,18));
 
@@ -55,7 +54,7 @@ public class DummyContent {
         courses.add(c4);
 
         courses.add(c5);
-        courses.add(c6);
+        courses.add(c6);*/
     }
 
     /**

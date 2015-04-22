@@ -8,6 +8,7 @@ package com.example.wael.partie_etudiant.Models;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -19,11 +20,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 public class JsonParser {
 
     final String TAG = "JsonParser.java";
-
+    // params de test
+    List<NameValuePair> params ;
+    //////////////////////////////////
     static InputStream is = null;
     static JSONObject jObj = null;
     static String json = "";
@@ -33,9 +37,10 @@ public class JsonParser {
         // make HTTP request
         try {
 
+
             DefaultHttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(url);
-
+        //    httpPost.setEntity(new UrlEncodedFormEntity(params));
             HttpResponse httpResponse = httpClient.execute(httpPost);
             HttpEntity httpEntity = httpResponse.getEntity();
             is = httpEntity.getContent();
@@ -69,7 +74,6 @@ public class JsonParser {
         } catch (JSONException e) {
             Log.e(TAG, "Error parsing data " + e.toString());
         }
-
         // return JSON String
         return jObj;
     }
