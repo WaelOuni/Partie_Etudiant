@@ -2,21 +2,21 @@
     xmlns:tools="http://schemas.android.com/tools" android:id="@+id/container"
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:orientation="horizontal"
-    tools:context="com.example.wael.partie_etudiant.RegisterEtudiant"
+    tools:context="com.example.wael.student.RegisterEtudiant"
     tools:ignore="MergeRootFrame"
     >
 
     <fragment
         android:layout_width="90dp"
         android:layout_height="fill_parent"
-        android:name="com.example.wael.partie_etudiant.StepsHeadLinesFragment"
+        android:name="com.example.wael.student.StepsHeadLinesFragment"
         android:id="@+id/steps_headlines_fragment"
         />
 
     <fragment
         android:layout_width="103dp"
         android:layout_height="fill_parent"
-        android:name="com.example.wael.partie_etudiant.StepViewFragment"
+        android:name="com.example.wael.student.StepViewFragment"
         android:id="@+id/steps_view_fragment"
         android:layout_weight="0.14" />
 

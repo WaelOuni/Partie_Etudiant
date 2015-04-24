@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.wael.partie_etudiant" >
+    package="com.example.wael.student" >
 
     <!-- To access Google+ APIs: -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -49,6 +49,10 @@
         <activity
             android:name=".ConsultProfile"
             android:label="@string/title_activity_consult_profile" >
+        </activity>
+        <activity
+            android:name=".ListCourses"
+            android:label="@string/title_activity_list_courses" >
         </activity>
     </application>
 
