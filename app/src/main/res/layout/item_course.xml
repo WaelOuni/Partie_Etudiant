@@ -13,6 +13,7 @@
             android:layout_width="110dp"
             android:layout_height="70dp"
             android:id="@+id/courseIcon"
+            android:layout_marginLeft="10dp"
             android:src="@android:drawable/ic_menu_sort_alphabetically" />
 
         <LinearLayout
@@ -35,6 +36,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:id="@+id/date_depo_course"
                 android:layout_marginLeft="22dp"/>
+
         </LinearLayout>
     </LinearLayout>
 
@@ -42,26 +44,22 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.06"
         android:weightSum="1">
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="60dp"
-            android:text="View"
             android:id="@+id/view_course"
-            android:layout_marginLeft="22dp"
-            android:layout_weight="0.28"
-            android:background="#ff00a0c0" />
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/view_course_btn"
+            android:layout_weight="0.56" />
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="182dp"
             android:layout_height="60dp"
-            android:text="Download"
             android:id="@+id/download_course"
-            android:layout_marginLeft="44dp"
-            android:layout_weight="0.47"
-            android:background="#ff005da3" />
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/downlaod_btn" />
     </LinearLayout>
 
 </LinearLayout>

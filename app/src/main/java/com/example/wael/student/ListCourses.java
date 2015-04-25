@@ -87,9 +87,4 @@ public class ListCourses extends ActionBarActivity {
 
 
 
-
-
-
-
-
 }

@@ -3,6 +3,7 @@ package com.example.wael.student;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -184,10 +185,13 @@ public class EspaceEtudiant extends ActionBarActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+<<<<<<< HEAD:app/src/main/java/com/example/wael/student/EspaceEtudiant.java
         } else if (id==R.id.action_example){
 
        //     displayListView();
 
+=======
+>>>>>>> parent of 9566f76... implant git in android studio:app/src/main/java/com/example/wael/partie_etudiant/EspaceEtudiant.java
         }
 
         return super.onOptionsItemSelected(item);
@@ -200,6 +204,7 @@ public class EspaceEtudiant extends ActionBarActivity
         toast.show();
     }
 
+<<<<<<< HEAD:app/src/main/java/com/example/wael/student/EspaceEtudiant.java
 
     //////////////////////    functionn to tes if a connection with the local database exist or not  //////////////////////////////
     protected boolean isOnline(){
@@ -317,4 +322,46 @@ public class EspaceEtudiant extends ActionBarActivity
         // longer using it.
         dataAdapter.swapCursor(null);
     }*/
+=======
+    /**
+     * A placeholder fragment containing a simple view.
+     */
+    public static class PlaceholderFragment extends Fragment {
+        /**
+         * The fragment argument representing the section number for this
+         * fragment.
+         */
+        private static final String ARG_SECTION_NUMBER = "section_number";
+
+        /**
+         * Returns a new instance of this fragment for the given section
+         * number.
+         */
+        public static PlaceholderFragment newInstance(int sectionNumber) {
+            PlaceholderFragment fragment = new PlaceholderFragment();
+            Bundle args = new Bundle();
+            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+            fragment.setArguments(args);
+            return fragment;
+        }
+
+        public PlaceholderFragment() {
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.fragment_espace_etudiant, container, false);
+            return rootView;
+        }
+
+        @Override
+        public void onAttach(Activity activity) {
+            super.onAttach(activity);
+            ((EspaceEtudiant) activity).onSectionAttached(
+                    getArguments().getInt(ARG_SECTION_NUMBER));
+        }
+    }
+
+>>>>>>> parent of 9566f76... implant git in android studio:app/src/main/java/com/example/wael/partie_etudiant/EspaceEtudiant.java
 }

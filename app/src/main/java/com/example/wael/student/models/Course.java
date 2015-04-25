@@ -2,6 +2,8 @@ package com.example.wael.student.models;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Date;
+
 /**
  * Created by Wael on 01/04/2015.
  */
@@ -20,6 +22,7 @@ public class Course {
     private String subject;
     @SerializedName("teacher_course")
     private String teacher;
+<<<<<<< HEAD:app/src/main/java/com/example/wael/student/models/Course.java
     @SerializedName("date_depo_course")
     private String dateDepo;
 
@@ -27,14 +30,19 @@ public class Course {
     public Course(int idCourse, String name, String description, String url, String teacher, String dateDepo, String subject) {
 
         this.idCourse = idCourse;
+=======
+    private Date dateDepo;
+
+    public Course(int id, String name, String description, String url, String subject, String teacher, Date dateDepo) {
+        this.id = id;
+>>>>>>> parent of 9566f76... implant git in android studio:app/src/main/java/com/example/wael/partie_etudiant/Models/Course.java
         this.name = name;
         this.description = description;
-
+        this.subject = subject;
         this.teacher = teacher;
         this.url = url;
 
         this.dateDepo=dateDepo;
-        this.subject = subject;
     }
 
 
@@ -81,12 +89,16 @@ public class Course {
     public String getTeacher() {
         return teacher;
     }
+<<<<<<< HEAD:app/src/main/java/com/example/wael/student/models/Course.java
 
     public String getDateDepo() {
+=======
+    public Date getDateDepo() {
+>>>>>>> parent of 9566f76... implant git in android studio:app/src/main/java/com/example/wael/partie_etudiant/Models/Course.java
         return dateDepo;
     }
 
-    public void setDateDepo(String dateDepo) {
+    public void setDateDepo(Date dateDepo) {
         this.dateDepo = dateDepo;
     }
 

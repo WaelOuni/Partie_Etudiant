@@ -1,40 +1,31 @@
-package com.example.wael.student;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AbsListView;
-import android.widget.AdapterView;
-import android.widget.ListAdapter;
-import android.widget.TextView;
-import android.widget.Toast;
+        package com.example.wael.student;
 
-import com.example.wael.student.adapters.MySubjectsAdapter;
-import com.example.wael.student.models.Course;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+        import android.app.Activity;
+        import android.os.AsyncTask;
+        import android.os.Bundle;
+        import android.support.v4.app.Fragment;
+        import android.support.v4.app.FragmentManager;
+        import android.util.Log;
+        import android.view.LayoutInflater;
+        import android.view.View;
+        import android.view.ViewGroup;
+        import android.widget.AbsListView;
+        import android.widget.AdapterView;
+        import android.widget.ListAdapter;
+        import android.widget.ProgressBar;
+        import android.widget.TextView;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.StatusLine;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
+        import com.example.wael.student.adapters.MySubjectsAdapter;
 
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+        import org.apache.http.NameValuePair;
+        import org.apache.http.message.BasicNameValuePair;
+        import org.json.JSONArray;
+        import org.json.JSONException;
+        import org.json.JSONObject;
+
+        import java.util.ArrayList;
+        import java.util.List;
 
 /**
  * A fragment representing a list of Items.
@@ -51,12 +42,12 @@ public class CoursesFragment extends Fragment implements AbsListView.OnItemClick
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-   // public static String[] DUMMY_CREDENTIALS;
+    public static  String[] DUMMY_CREDENTIALS;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    public static List<Course> courses;
-  //  private boolean success = false;
+    public  ArrayList<Course> courses = new ArrayList<Course>() ;
+
     private OnFragmentInteractionListener mListener;
 
     /**
@@ -65,12 +56,13 @@ public class CoursesFragment extends Fragment implements AbsListView.OnItemClick
     private AbsListView mListView;
     //Building Parameters
     List<NameValuePair> params = new ArrayList<NameValuePair>();
+    public ProgressBar pb;
     /**
      * The Adapter which will be used to populate the ListView/GridView with
      * Views.
      */
-    private MySubjectsAdapter mAdapter;
-    private static String yourJsonStringUrl;
+    private MySubjectsAdapter mAdapter ;
+    public static String yourJsonStringUrl;
 
     // TODO: Rename and change types of parameters
     public static CoursesFragment newInstance(String param1, String param2) {
@@ -93,20 +85,14 @@ public class CoursesFragment extends Fragment implements AbsListView.OnItemClick
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        yourJsonStringUrl=getString(R.string.url_base)+"allcourses.php?idSubject=5";
-        params.add(new BasicNameValuePair("idSubject", "5"));
-        AsyncTaskParseJson dlTask = new AsyncTaskParseJson();
-        dlTask.execute();
-
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        // Set the adapter
+
+
 
     }
 
@@ -117,17 +103,16 @@ public class CoursesFragment extends Fragment implements AbsListView.OnItemClick
 
 
         Log.i("log_tag", " successful connexion with Database ");
-        Log.i("log_tag", getString(R.string.url_base) );
+        Log.i("log_tag", getString(R.url_base) );
 
         view = inflater.inflate(R.layout.fragment_courses_list, container, false);
+
 
         // TODO: Change Adapter to display your content
         //     mAdapter = new ArrayAdapter<DummyContent.DummyItem>(getActivity(),
         //           android.R.layout.simple_list_item_1, android.R.id.text1, DummyContent.ITEMS);
-
-        // Set the adapter
         mAdapter = new MySubjectsAdapter(getActivity(),R.layout.item_subject, courses);
-        mListView = (AbsListView) view.findViewById(R.id.list_subjects);
+        mListView = (AbsListView) view.findViewById(android.R.id.list);
         ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
 
         // Set OnItemClickListener so we can be notified on item clicks
@@ -153,9 +138,23 @@ public class CoursesFragment extends Fragment implements AbsListView.OnItemClick
         mListener = null;
     }
 
+
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-     startActivity(new Intent(getActivity(), ListCourses.class));
+        if (null != mListener) {
+            // Notify the active callbacks interface (the activity, if the
+            // fragment is attached to one) that an item has been selected.
+            mListener.onFragmentInteraction(Integer.parseInt(String.valueOf(courses.get(position).getId())));
+
+            Fragment objFragment=null;
+
+            objFragment = ListCoursesFragment.newInstance("Courses'list","");
+            if (objFragment != null) {
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.container, objFragment).commit();
+
+            }
+        }
     }
 
     /**
@@ -174,6 +173,14 @@ public class CoursesFragment extends Fragment implements AbsListView.OnItemClick
     @Override
     public void onStart() {
         super.onStart();
+
+
+        yourJsonStringUrl=getString(R.string.url_base)+"allcourses.php";
+
+        params.add(new BasicNameValuePair("idSubject", "5"));
+        AsyncTaskParseJson dlTask = new AsyncTaskParseJson();
+
+        dlTask.execute(LoginActivity.yourJsonStringUrl);
     }
 
     /**
@@ -191,80 +198,98 @@ public class CoursesFragment extends Fragment implements AbsListView.OnItemClick
         public void onFragmentInteraction(int id);
     }
 
+    public static int i=0;
 
-    private void handleCoursesList(final List<Course> courses) {
-        this.courses = courses;
+    public class AsyncTaskParseJson extends AsyncTask<String, String, String> {
 
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                for (Course course : courses) {
-                    Toast.makeText(getActivity(), course.getName()+"  " + course.getDateDepo(), Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
+        final String TAG = "AsyncTaskParseJson.java";
 
-    private void failedLoadingPosts() {
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                Toast.makeText(getActivity(), "Failed to load Posts. Have a look at LogCat.", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-
-    public class AsyncTaskParseJson extends AsyncTask<Void, Void, String> {
-        private static final String TAG = "CourseFetcher";
-        public static final String SERVER_URL = "http://10.0.3.2/MyProjectConnect/Etudiant/allcourses.php?idSubject=5";
+        // contacts JSONArray
+        JSONArray dataJsonArr = null;
 
         @Override
-        protected String doInBackground(Void... params) {
+        protected void onPreExecute() {
+            //    pb.setVisibility(View.VISIBLE);
+        }
+
+
+
+        int idCourse;
+        String name;
+        String description;
+        String returnString="";
+        String url;
+        String teacher;
+        String dateDepo;
+        int idSubject;
+
+        @Override
+        protected String doInBackground(String... arg0) {
+
             try {
-                //Create an HTTP client
-                HttpClient client = new DefaultHttpClient();
-                HttpPost post = new HttpPost(SERVER_URL);
 
-                //Perform the request and check the status code
-                HttpResponse response = client.execute(post);
-                StatusLine statusLine = response.getStatusLine();
-                if(statusLine.getStatusCode() == 200) {
-                    HttpEntity entity = response.getEntity();
-                    InputStream content = entity.getContent();
-
-                    try {
-                        //Read the server response and attempt to parse it as JSON
-                        Reader reader = new InputStreamReader(content);
-                        GsonBuilder gsonBuilder = new GsonBuilder();
-                        gsonBuilder.setDateFormat("M/d/yy hh:mm a");
-                        Gson gson = gsonBuilder.create();
-                        List<Course> courses = new ArrayList<Course>();
-                        courses = Arrays.asList(gson.fromJson(reader, Course[].class));
-                        content.close();
-
-                        handleCoursesList(courses);
-                    } catch (Exception ex) {
-                        Log.e(TAG, "Failed to parse JSON due to: " + ex);
-                        failedLoadingPosts();
-                    }
-                } else {
-                    Log.e(TAG, "Server responded with status code: " + statusLine.getStatusCode());
-                    failedLoadingPosts();
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
-            } catch(Exception ex) {
-                Log.e(TAG, "Failed to send HTTP POST request due to: " + ex);
-                failedLoadingPosts();
+                // instantiate our json parser
+                JsonParser jParser = new JsonParser();
+
+                // get json string from url
+                JSONObject json = jParser.getJSONFromUrl("http://10.0.3.2/MyProjectConnect/Etudiant/allcourses.php?idSubject=5");
+                dataJsonArr= json.getJSONArray("auth");
+
+                for(int i=0;i<dataJsonArr.length();i++){
+                    JSONObject c = dataJsonArr.getJSONObject(i);
+                    // Storing each json item in variable
+                    idCourse = c.getInt("id_course");
+                    name = c.getString("nom_course");
+                    description = c.getString("description_course");
+                    url = c.getString("url_course");
+                    teacher = c.getString("teacher_course");
+                    dateDepo = c.getString("date_depo_course");
+                    idSubject = c.getInt("id_subject_course");
+                    if (idCourse!=0)
+                        courses.add(new Course(idCourse,name,description,
+                                url,teacher,dateDepo,Integer.toString(idSubject)));
+
+
+                    returnString += "\n\t"+name+":"+description+":"+url+":"+teacher+":"+dateDepo+":"+idSubject;
+                }
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-            return null;
+
+            return returnString;
         }
 
         @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
+        protected void onProgressUpdate(String... values) {
+            super.onProgressUpdate(values);
+        }
 
-
+        @Override
+        protected void onPostExecute(String str) {
+            //  pb.setVisibility(View.INVISIBLE);
+            String[] strs;
+            strs =returnString.split("\n\t");
+            DUMMY_CREDENTIALS= new String[strs.length-1];
+            DUMMY_CREDENTIALS=strs;
+            int k=0;
+            for (int d=1; d<strs.length;d++){
+                DUMMY_CREDENTIALS[k]=strs[d];
+                k++;
+            }
+            for (int j = 0; j <courses.size() ; j++) {
+                Log.w("test", "\n\t" + courses.get(CoursesFragment.i++).getDescription());
+                j++;
+            }
         }
     }
+
+
 
 }

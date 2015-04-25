@@ -24,8 +24,8 @@ public class MyContentProvider extends ContentProvider{
     // authority is the symbolic name of your provider
     // To avoid conflicts with other providers, you should use
     // Internet domain ownership (in reverse) as the basis of your provider authority.
-    private static final String AUTHORITY = "com.as400samplecode.contentprovider";
-
+    private static final String AUTHORITY = "com.example.wael.student";
+    //com.udacity.provider.Project
     // create content URIs from the authority by appending path to database table
     public static final Uri CONTENT_URI =
             Uri.parse("content://" + AUTHORITY + "/courses");
@@ -54,9 +54,9 @@ public class MyContentProvider extends ContentProvider{
 
         switch (uriMatcher.match(uri)) {
             case ALL_COURSES:
-                return "vnd.android.cursor.dir/vnd.com.as400samplecode.contentprovider.countries";
+                return "courses";
             case SINGLE_COURSE:
-                return "vnd.android.cursor.item/vnd.com.as400samplecode.contentprovider.countries";
+                return "course";
             default:
                 throw new IllegalArgumentException("Unsupported URI: " + uri);
         }
