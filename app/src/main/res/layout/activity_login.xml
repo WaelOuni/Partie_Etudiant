@@ -5,7 +5,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.wael.student.LoginActivity"
+    tools:context="com.example.wael.partie_etudiant.LoginActivity"
     android:background="@drawable/background">
 
     <!-- Login progress -->
