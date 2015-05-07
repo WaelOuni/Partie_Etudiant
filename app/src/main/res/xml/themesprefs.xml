@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+
+        android:title="Choose your favorite Theme"
+
+        android:key="first_category">
+
+
+        <CheckBoxPreference
+
+            android:key="@string/dark_theme"
+
+            android:summary="Enable or disable the dark theme"
+
+            android:title="Enable the dark theme"
+
+            android:defaultValue="true"
+             />
+
+
+        <CheckBoxPreference
+
+            android:key="@string/light_theme"
+
+            android:summary="Enable or disable the light theme"
+
+            android:title="Enable the light theme"
+
+            android:defaultValue="true"
+
+            />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

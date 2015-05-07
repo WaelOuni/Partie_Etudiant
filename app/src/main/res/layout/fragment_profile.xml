@@ -1,0 +1,139 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" tools:context="rnu.iit.waelgroup.student.Profile">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="1">
+
+            <ImageView
+                android:id="@+id/profilestudent"
+                android:layout_width="61dp"
+                android:layout_height="82dp"
+                android:src="@drawable/logo_learning"
+                android:layout_weight="0.08" />
+
+            <TextView
+                android:id="@+id/profilestatic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="50dp"
+                android:text="My profile"
+                android:textSize="32dp"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.80" >
+
+            <LinearLayout
+                android:id="@+id/linearLayout1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="38dp"
+                android:layout_marginTop="10dp" >
+
+                <ImageView
+                    android:id="@+id/mytof"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/profile" />
+
+                <TextView
+                    android:id="@+id/remarqueTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/noteFinTestTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/linearLayout1"
+                android:layout_below="@+id/linearLayout1"
+                android:layout_marginTop="37dp"
+                android:text="Your mail :" />
+
+            <TextView
+                android:id="@+id/noteFinTest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/noteFinTestTxt"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="46dp"
+                android:text="waelounie@gmail.com"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/mentionfinTestTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/noteFinTestTxt"
+                android:layout_below="@+id/noteFinTestTxt"
+                android:layout_marginTop="51dp"
+                android:text="Password :" />
+
+            <TextView
+                android:id="@+id/mentionFinTest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/mentionfinTestTxt"
+                android:layout_alignBottom="@+id/mentionfinTestTxt"
+                android:layout_alignLeft="@+id/noteFinTest"
+                android:text="*********"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Your level :"
+                android:id="@+id/textView3"
+                android:layout_below="@+id/mentionfinTestTxt"
+                android:layout_alignLeft="@+id/mentionfinTestTxt"
+                android:layout_alignStart="@+id/mentionfinTestTxt"
+                android:layout_marginTop="47dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="bac"
+                android:id="@+id/textView4"
+                android:layout_alignTop="@+id/textView3"
+                android:layout_alignLeft="@+id/mentionFinTest"
+                android:layout_alignStart="@+id/mentionFinTest" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Phone number :"
+                android:id="@+id/textView5"
+                android:layout_below="@+id/textView3"
+                android:layout_alignLeft="@+id/textView3"
+                android:layout_alignStart="@+id/textView3"
+                android:layout_marginTop="57dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="99663587"
+                android:id="@+id/textView6"
+                android:layout_alignTop="@+id/textView5"
+                android:layout_alignLeft="@+id/textView4"
+                android:layout_alignStart="@+id/textView4" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

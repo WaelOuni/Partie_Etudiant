@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Partie_Etudiant</string>
+    <string name="url_base_student">http://10.0.3.2/MyProjectConnect/Etudiant/</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_espace_etudiant">EspaceEtudiant</string>
+    <string name="title_activity_inscription">Inscription</string>
+
+
+    <string name="title_section1">Home</string>
+    <string name="title_section2">Profile student</string>
+    <string name="title_section3">Calendar</string>
+    <string name="title_section4">News and alerts</string>
+    <string name="title_section5">Contacts</string>
+    <string name="title_section6">Courses</string>
+    <string name="title_section7">Tests</string>
+    <string name="title_section8">Results</string>
+    <string name="title_section9">Sign out</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="deconect">log out</string>
+    <string name="title_activity_inscritption">Inscritption</string>
+    <string name="title_activity_register_etudiant">RegisterEtudiant</string>
+    <string name="title_activity_consult_profile">ConsultProfile</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="theme_manager">Theme_manager</string>
+    <string name="student_space">Student_space</string>
+    <string name="theme_choice_label">theme_choice</string>
+    <string name="theme_key">theme</string>
+    <string name="title_activity_list_courses">ListCourses</string>
+    <string name="title_activity_preferences_with_headers">PreferencesWithHeaders</string>
+    <string name="title_activity_show_settings">ShowSettingsActivity</string>
+
+</resources>
