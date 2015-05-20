@@ -115,14 +115,10 @@ public class TestsFragment extends Fragment  implements AbsListView.OnItemClickL
 
 try{
         SimpleExpandableListAdapter expListAdapter;
-    expListAdapter = new SimpleExpandableListAdapter(  getActivity(),    createGroupList(),
-            R.layout.group_row,new String[] { "Group Item" }, new int[] { R.id.row_name },
-            createChildList(),  R.layout.child_row, new String[] {"Sub Item"},
-            new int[] { R.id.grp_child}	);
-
+    expListAdapter = new SimpleExpandableListAdapter(  getActivity(),
+            createGroupList(),  R.layout.group_row, new String[] { "Group Item", "Group level" }, new int[] { R.id.row_name, R.id.level},
+            createChildList(),  R.layout.child_row, new String[] {"Sub Item"}, new int[] { R.id.grp_child}	);
     mListView = (ExpandableListView) view.findViewById(R.id.expandableListView);
-
-
     mListView.setAdapter( expListAdapter );		// setting the adapter in the list.
 
     }catch(Exception e){
@@ -130,44 +126,36 @@ try{
     }
     return view;
 }
-// TestsFragment.tests.get(i).getSubject(), TestsFragment.tests.get(i).getLevel() );
 
+// TestsFragment.tests.get(i).getSubject(), TestsFragment.tests.get(i).getLevel() );
     /* Creating the Hashmap for the row */
     @SuppressWarnings("unchecked")
     private List createGroupList() {
         ArrayList result = new ArrayList();
         for( int i = 0 ; i < TestsFragment.tests.size() ; ++i ) { // 15 groups........
             HashMap m = new HashMap();
-            m.put( "Group Item","Test : "+TestsFragment.tests.get(i).getSubject() +"            Level :"+ TestsFragment.tests.get(i).getLevel() ); // the key and it's value.
+            m.put( "Group Item"," Test : "+ TestsFragment.tests.get(i).getSubject() ); // the key and it's value.
+            m.put( "Group level"," Level :"+ TestsFragment.tests.get(i).getLevel() ); // the key and it's value.
             result.add( m );
         }
-
-
         return (List)result;
     }
 
     /* creatin the HashMap for the children */
     @SuppressWarnings("unchecked")
     private List createChildList() {
-
         ArrayList result = new ArrayList();
         for( int i = 0 ; i < TestsFragment.tests.size() ; ++i ) { // this -15 is the number of groups(Here it's fifteen)
     	  /* each group need each HashMap-Here for each group we have 3 subgroups */
             ArrayList secList = new ArrayList();
-
                 HashMap child = new HashMap();
-                child.put( "Sub Item", "By  "+TestsFragment.tests.get(i).getTeacher() + "\n"+ "In  "+TestsFragment.tests.get(i).getDate()  +
-                        "At  "+TestsFragment.tests.get(i).getSession() + "\n"+TestsFragment.tests.get(i).getCourses() );
-
-          //  child.put( "Sub Item2", "In"+TestsFragment.tests.get(i).getDate()  );
-          //  child.put( "Sub Item3", "At"+TestsFragment.tests.get(i).getSession()  );
-           child.put( "Sub Item4", ""+TestsFragment.tests.get(i).getCourses()  );
-                secList.add( child );
-
+                child.put( "Sub Item", "By  "+TestsFragment.tests.get(i).getTeacher() + "\n"+ "In  "+TestsFragment.tests.get(i).getDate()+
+                        "At  "+TestsFragment.tests.get(i).getSession()+"\n"+TestsFragment.tests.get(i).getCourses());
             result.add( secList );
         }
         return result;
     }
+
     public void  onContentChanged  () {
         System.out.println("onContentChanged");
         View emptyView = getView().findViewById(android.R.id.empty);
@@ -252,7 +240,6 @@ try{
     }
 
     public class AsyncTaskParseJson extends AsyncTask<String, String, String> {
-
         final String TAG = "AsyncTaskParseJson.java";
         JSONArray dataJsonArr = null;
 
@@ -260,7 +247,6 @@ try{
         protected void onPreExecute() {
 
         }
-
         int id_test;
         String subject_test;
         String teacher_test;
@@ -275,7 +261,6 @@ try{
         protected String doInBackground(String... arg0) {
 
             try {
-
                 // instantiate our json parser
                 JsonParser jParser = new JsonParser();
 

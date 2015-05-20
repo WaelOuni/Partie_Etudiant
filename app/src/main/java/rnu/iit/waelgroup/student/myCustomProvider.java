@@ -19,17 +19,14 @@ import java.util.HashMap;
 
 public class myCustomProvider extends ContentProvider {
 
-    static final String PROVIDER_NAME = "rnu.iit.waelgroup.student.myCustomProvider";
+    static final String PROVIDER_NAME = "rnu.iit.waelgroup.student";
     static final String URL = "content://" + PROVIDER_NAME + "/Courses";
     static final Uri CONTENT_URI = Uri.parse(URL);
     static final String ITEM_ID = "id";
     static final String COURSE = "name";
     static final String DAT = "dateDepo";
-
     //nom_course, description_course, url_course, teacher_course, date_depo_course, name_subject
-
     private static HashMap<String, String> ITEMS_PROJECTION_MAP;
-
     static final int IT = 1;
     static final int IT_ID = 2;
 
@@ -67,7 +64,6 @@ public class myCustomProvider extends ContentProvider {
             db.execSQL("DROP TABLE IF EXISTS " +  TABLE_NAME);
             onCreate(db);
         }
-
     }
 
     @Override

@@ -64,8 +64,6 @@ public class ListCourses extends ActionBarActivity implements LoaderManager.Load
         // Set OnItemClickListener so we can be notified on item clicks
         mListView.setOnItemClickListener(this);
 
-
-
         ////////////////////////////////////////////    provider test work ////////////////////////////////////////////////////////
 
 /*
@@ -147,7 +145,6 @@ public class ListCourses extends ActionBarActivity implements LoaderManager.Load
         Button view,download;
         TextView name, date;
     }
-
 
 
 

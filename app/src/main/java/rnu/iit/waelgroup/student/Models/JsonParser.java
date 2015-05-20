@@ -29,17 +29,13 @@ public class JsonParser {
     static String json = "";
 
     public JSONObject getJSONFromUrl(String url) {
-
         // make HTTP request
         try {
-
             DefaultHttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(url);
-
             HttpResponse httpResponse = httpClient.execute(httpPost);
             HttpEntity httpEntity = httpResponse.getEntity();
             is = httpEntity.getContent();
-
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } catch (ClientProtocolException e) {

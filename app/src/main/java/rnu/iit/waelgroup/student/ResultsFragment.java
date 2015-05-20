@@ -1,17 +1,36 @@
 package rnu.iit.waelgroup.student;
 
 import android.app.Activity;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.util.ArrayList;
+
+import rnu.iit.waelgroup.student.Adapters.MyResultAdapter;
+import rnu.iit.waelgroup.student.Models.Resultat;
 import rnu.iit.waelgroup.student.dummy.DummyContent;
 
 /**
@@ -24,6 +43,8 @@ import rnu.iit.waelgroup.student.dummy.DummyContent;
  * interface.
  */
 public class ResultsFragment extends Fragment implements AbsListView.OnItemClickListener {
+
+    public static ArrayList<Resultat> results = new ArrayList<Resultat>() ;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -45,7 +66,8 @@ public class ResultsFragment extends Fragment implements AbsListView.OnItemClick
      * The Adapter which will be used to populate the ListView/GridView with
      * Views.
      */
-    private ListAdapter mAdapter;
+    private MyResultAdapter mAdapter;
+    private static String yourJsonStringUrl;
 
     // TODO: Rename and change types of parameters
     public static ResultsFragment newInstance(String param1, String param2) {
@@ -68,14 +90,25 @@ public class ResultsFragment extends Fragment implements AbsListView.OnItemClick
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        yourJsonStringUrl=getString(R.string.url_base_student)+"resultattest.php";
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        AsyncTaskParseJson dlTask = new AsyncTaskParseJson();
+
+        dlTask.execute();
+
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
 
         // TODO: Change Adapter to display your content
-        mAdapter = new ArrayAdapter<DummyContent.DummyItem>(getActivity(),
-                android.R.layout.simple_list_item_1, android.R.id.text1, DummyContent.ITEMS);
+        mAdapter = new MyResultAdapter(getActivity(),
+                R.layout.item_resultat,results);
     }
 
     @Override
@@ -148,4 +181,57 @@ public class ResultsFragment extends Fragment implements AbsListView.OnItemClick
         public void onFragmentInteraction(int id);
     }
 
+
+    public class AsyncTaskParseJson extends AsyncTask<String, String, String> {
+
+        final String TAG = "AsyncTaskParseJson.java";
+        JSONArray dataJsonArr = null;
+
+        @Override
+        protected void onPreExecute() {
+        }
+
+        String returnString="";
+        @Override
+        protected String doInBackground(String... arg0) {
+            InputStream source = retrieveStream(yourJsonStringUrl);
+            Gson gson = new Gson();
+            Reader reader = new InputStreamReader(source);
+            Resultat response = gson.fromJson(reader, Resultat.class);
+            Toast.makeText(getActivity(), response.getMention(), Toast.LENGTH_SHORT).show();
+            //List<Resultat> results = response.;
+            results.add(response);
+            Log.i("result ", response.getMention());
+            return returnString;
+        }
+
+        @Override
+        protected void onPostExecute(String str) {
+            Log.i("test json object ", "test");
+            //load = false;
+        }
+    }
+
+    private InputStream retrieveStream(String url) {
+        DefaultHttpClient client = new DefaultHttpClient();
+        HttpGet getRequest = new HttpGet(url);
+        try {
+            HttpResponse getResponse = client.execute(getRequest);
+            final int statusCode = getResponse.getStatusLine().getStatusCode();
+            if (statusCode != HttpStatus.SC_OK) {
+                Log.w(getClass().getSimpleName(),
+                        "Error " + statusCode + " for URL " + url);
+                return null;
+            }
+            HttpEntity getResponseEntity = getResponse.getEntity();
+            return getResponseEntity.getContent();
+
+        }
+        catch (IOException e) {
+            getRequest.abort();
+            Log.w(getClass().getSimpleName(), "Error for URL " + url, e);
+        }
+        return null;
+
+    }
 }

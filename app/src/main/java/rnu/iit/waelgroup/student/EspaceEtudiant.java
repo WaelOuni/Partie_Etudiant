@@ -256,7 +256,6 @@ CoursesFragment.OnFragmentInteractionListener,TestsFragment.OnFragmentInteractio
 
         @Override
         protected void onPreExecute() {
-
         }
 
         int idSubject;
@@ -267,7 +266,6 @@ CoursesFragment.OnFragmentInteractionListener,TestsFragment.OnFragmentInteractio
         protected String doInBackground(String... arg0) {
 
             try {
-
                 // instantiate our json parser
                 JsonParser jParser = new JsonParser();
                 Log.i("test json object ", "test");
@@ -290,12 +288,10 @@ CoursesFragment.OnFragmentInteractionListener,TestsFragment.OnFragmentInteractio
             return "";
         }
 
-
         @Override
         protected void onPostExecute(String str) {
             Toast.makeText(getApplicationContext(), "You are welcome :) ", Toast.LENGTH_SHORT).show();
             load = false;
         }
     }
-
 }

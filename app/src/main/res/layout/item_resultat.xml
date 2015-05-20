@@ -1,72 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="1">
-
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:weightSum="1" >
-
         <ImageView
             android:layout_width="100dp"
             android:layout_height="150dp"
             android:layout_gravity="center|center_vertical"
-            android:id="@+id/courseIcon"
+            android:id="@+id/resultIcon"
             android:src="@android:drawable/ic_menu_sort_alphabetically" />
-
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-
             android:layout_height="wrap_content">
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="New Text"
                 android:textColor="#ff000000"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:id="@+id/course_name"
+                android:id="@+id/nomStudent"
                 android:layout_marginTop="20dp"
                 />
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Medium Text"
                 android:textColor="#ff828380"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/date_depo_course"
+                android:id="@+id/mention"
                 android:layout_marginTop="10dp"
                 />
-
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Small Text"
+                android:id="@+id/textView7" />
         </LinearLayout>
     </LinearLayout>
-
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:weightSum="1">
-
-        <Button
-            android:layout_width="177dp"
-            android:layout_height="60dp"
-            android:id="@+id/view_course"
-            android:background="@drawable/view_course_btn"
-            android:layout_weight="0.83" />
-
-        <Button
-            android:layout_width="177dp"
-            android:layout_height="60dp"
-            android:id="@+id/download_course"
-            android:background="@drawable/downlaod_btn"
-
-            android:layout_marginLeft="20dp"
-            android:layout_weight="0.15" />
     </LinearLayout>
-
-</LinearLayout>
+</RelativeLayout>

@@ -1,15 +1,19 @@
 package rnu.iit.waelgroup.student.Models;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by Wael on 30/03/2015.
  */
 public class Resultat {
+
+    @SerializedName("cin_etudiant")
     private int cin;
-    private int idtest;
     private int numrepjust;
     private int numrepfalse;
     private String mention;
     private int rapidite;
+    private int idtest;
 
     public int getCin() {
         return cin;
@@ -66,8 +70,6 @@ public class Resultat {
         this.numrepfalse = numrepfalse;
         this.mention = mention;
         this.rapidite = rapidite;
-
-
 
     }
 }
