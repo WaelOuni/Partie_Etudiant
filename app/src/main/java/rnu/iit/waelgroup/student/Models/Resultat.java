@@ -1,34 +1,51 @@
 package rnu.iit.waelgroup.student.Models;
 
-import com.google.gson.annotations.SerializedName;
-
 /**
  * Created by Wael on 30/03/2015.
  */
 public class Resultat {
 
-    @SerializedName("cin_etudiant")
-    private int cin;
+    private String nom;
+    private String prenom;
     private int numrepjust;
     private int numrepfalse;
     private String mention;
     private int rapidite;
-    private int idtest;
+    private String subject_test;
 
-    public int getCin() {
-        return cin;
+
+    public Resultat(String nom, String prenom, int numrepjust, int numrepfalse, String mention, int rapidite, String subject_test) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.numrepjust = numrepjust;
+        this.numrepfalse = numrepfalse;
+        this.mention = mention;
+        this.rapidite = rapidite;
+        this.subject_test = subject_test;
     }
 
-    public void setCin(int cin) {
-        this.cin = cin;
+    public String getNom() {
+        return nom;
     }
 
-    public int getIdtest() {
-        return idtest;
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
-    public void setIdtest(int idtest) {
-        this.idtest = idtest;
+    public String getPrenom() {
+        return prenom;
+    }
+
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
+
+    public String getSubject_test() {
+        return subject_test;
+    }
+
+    public void setSubject_test(String subject_test) {
+        this.subject_test = subject_test;
     }
 
     public int getNumrepjust() {
@@ -61,15 +78,5 @@ public class Resultat {
 
     public void setRapidite(int rapidite) {
         this.rapidite = rapidite;
-    }
-
-    public Resultat(int cin, int idtest, int numrepjust, int numrepfalse, String mention, int rapidite) {
-        this.cin = cin;
-        this.idtest = idtest;
-        this.numrepjust = numrepjust;
-        this.numrepfalse = numrepfalse;
-        this.mention = mention;
-        this.rapidite = rapidite;
-
     }
 }

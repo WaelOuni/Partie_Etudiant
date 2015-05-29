@@ -3,10 +3,31 @@
     android:layout_height="match_parent" tools:context="rnu.iit.waelgroup.student.Calendar">
 
     <!-- TODO: Update blank fragment layout -->
-
-    <DatePicker
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="558dp"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+        android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <DatePicker
         android:id="@+id/datePicker"
-        android:layout_gravity="left|top" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|top"
+                android:calendarViewShown="true"
+                android:datePickerMode="calendar" />
+
+            <Button
+                android:id="@+id/addEventBtn"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Add event" />
+
+
+        </LinearLayout>
+    </ScrollView>
 </FrameLayout>

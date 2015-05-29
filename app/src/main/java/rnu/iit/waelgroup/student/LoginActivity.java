@@ -50,18 +50,18 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
     public static  String[] DUMMY_CREDENTIALS;
     // url of the php file
     public static String yourJsonStringUrl ;
+    static int vl = 0;
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
     private UserLoginTask mAuthTask = null;
-
     // UI references.
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
     private TextView regLink;
-    static int vl=0;
+    private String cin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,30 +116,24 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         getLoaderManager().initLoader(0, null, this);
     }
 
-
     /**
      * Attempts to sign in or register the account specified by the login form.
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
 
-
     public void attemptLogin() {
         if (mAuthTask != null) {
             return;
         }
-
         // Reset errors.
         mEmailView.setError(null);
         mPasswordView.setError(null);
-
         // Store values at the time of the login attempt.
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
-
         boolean cancel = false;
         View focusView = null;
-
 
         // Check for a valid password, if the user entered one.
         if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
@@ -264,6 +258,16 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
     }
 
+    private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
+        //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
+        ArrayAdapter<String> adapter =
+                new ArrayAdapter<String>(LoginActivity.this,
+                        android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
+
+        mEmailView.setAdapter(adapter);
+    }
+
+
     private interface ProfileQuery {
         String[] PROJECTION = {
                 ContactsContract.CommonDataKinds.Email.ADDRESS,
@@ -272,16 +276,6 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
         int ADDRESS = 0;
         int IS_PRIMARY = 1;
-    }
-
-
-    private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
-        //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
-        ArrayAdapter<String> adapter =
-                new ArrayAdapter<String>(LoginActivity.this,
-                        android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
-
-        mEmailView.setAdapter(adapter);
     }
 
     /**
@@ -303,15 +297,16 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             // TODO: attempt authentication against a network service.
 
             try {
-                Thread.sleep(3000);
+                Thread.sleep(2000);
             } catch (InterruptedException e) {
                 return false;
             }
 
             for (String credential : DUMMY_CREDENTIALS) {
                 String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    return pieces[1].equals(mPassword);
+                if (pieces[1].equals(mEmail) & pieces[2].equals(mPassword)) {
+                    cin = pieces[0];
+                    return true;
                 }
             }
             //for easier test app i do a simplified pass :)
@@ -327,10 +322,10 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             showProgress(false);
 
             if (success) {
-                for (String credential : DUMMY_CREDENTIALS) {
-                    String[] pieces = credential.split(":");
-                }
-                    startActivity (new Intent(getApplicationContext(), EspaceEtudiant.class));
+
+                Intent i = new Intent(getApplicationContext(), EspaceEtudiant.class);
+                i.putExtra("session", cin);
+                startActivity(i);
                 finish();
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
@@ -349,44 +344,38 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
     public class AsyncTaskParseJson extends AsyncTask<String, String, String> {
 
         final String TAG = "AsyncTaskParseJson.java";
-
-
         // contacts JSONArray
         JSONArray dataJsonArr = null;
-
-        @Override
-        protected void onPreExecute() {}
+        String cin;
         String email;
         String password;
         String returnString="";
 
         @Override
+        protected void onPreExecute() {
+        }
+
+        @Override
          protected String doInBackground(String... arg0) {
 
             try {
-
                 // instantiate our json parser
                 JsonParser jParser = new JsonParser();
-
                 // get json string from url
-                JSONObject json = jParser.getJSONFromUrl(arg0[0]);
+                JSONObject json = jParser.getJSONFromUrl(arg0[0], null);
                 dataJsonArr= json.getJSONArray("auth");
-
                 for(int i=0;i<dataJsonArr.length();i++){
                      JSONObject c = dataJsonArr.getJSONObject(i);
-
                     // Storing each json item in variable
+                    cin = Integer.toString(c.getInt("cin_etudiant"));
                     email = c.getString("email");
                     password = c.getString("password");
-
-                    returnString += "\n\t"+email+":"+password;
+                    returnString += "\n\t" + cin + ":" + email + ":" + password;
                 }
-
 
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
             return returnString;
         }
 

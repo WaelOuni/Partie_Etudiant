@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -34,13 +35,20 @@ public class MyResultAdapter extends ArrayAdapter<Resultat> {
 
         final Resultat resultat = ResultatList.get(position);
         View view = inflater.inflate(R.layout.item_resultat, parent, false);
-
         TextView tx =(TextView)view.findViewById(R.id.nomStudent);
-        TextView tx2 =(TextView)view.findViewById(R.id.mention);
-
-        tx.setText(String.valueOf(resultat.getCin()));
-        tx2.setText(resultat.getMention());
-
+        TextView tx1 = (TextView) view.findViewById(R.id.subjectTest);
+        TextView tx2 = (TextView) view.findViewById(R.id.numRepJustes);
+        TextView tx3 = (TextView) view.findViewById(R.id.mentionResult);
+        ImageView imResult = (ImageView) view.findViewById(R.id.resultIcon);
+        int questsNumber = resultat.getNumrepjust() + resultat.getNumrepfalse();
+        if (resultat.getNumrepjust() > resultat.getNumrepfalse()) {
+            imResult.setImageResource(R.drawable.success);
+        } else
+            imResult.setImageResource(R.drawable.faiulre);
+        tx.setText(resultat.getNom() + " " + resultat.getPrenom());
+        tx1.setText(resultat.getSubject_test());
+        tx2.setText(resultat.getNumrepjust() + " / " + questsNumber);
+        tx3.setText(resultat.getMention());
         return view;
     }
 }

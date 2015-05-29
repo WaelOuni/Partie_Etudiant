@@ -3,7 +3,6 @@ package rnu.iit.waelgroup.student;
 /**
  * Created by Wael on 30/04/2015.
  */
-        import android.content.Intent;
         import android.os.Bundle;
         import android.preference.PreferenceActivity;
         import android.view.Menu;
@@ -33,9 +32,9 @@ public class QuickPrefsActivity extends PreferenceActivity {
 
         switch (item.getItemId()) {
 
-            case 0:
+            case 10005:
 
-                startActivity(new Intent(this, ShowSettingsActivity.class));
+                //     startActivity(new Intent(this, ShowSettingsActivity.class));
 
                 return true;
 

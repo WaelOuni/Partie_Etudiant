@@ -14,10 +14,10 @@ public class Etudiant {
     private String password;
     private String niveau;
     private String telephone;
-
+    private int classe;
 
     public Etudiant(int cin, String nom, String prenom, int inscription,
-                    String genre, String email, String password, String niveau, String telephone){
+                    String genre, String email, String password, String niveau, String telephone, int classe) {
 
         this.cin=cin;
         this.nom=nom;
@@ -28,7 +28,7 @@ public class Etudiant {
         this.password=password;
         this.niveau=niveau;
         this.telephone=telephone;
-
+        this.classe = classe;
     }
 
     public int getCin() {
@@ -101,5 +101,13 @@ public class Etudiant {
 
     public void setTelephone(String telephone) {
         this.telephone = telephone;
+    }
+
+    public int getClasse() {
+        return classe;
+    }
+
+    public void setClasse(int classe) {
+        this.classe = classe;
     }
 }

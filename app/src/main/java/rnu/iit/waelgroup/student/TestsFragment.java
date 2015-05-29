@@ -10,10 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ExpandableListView;
-import android.widget.ListAdapter;
-import android.widget.SimpleExpandableListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -21,8 +18,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 import rnu.iit.waelgroup.student.Models.JsonParser;
 import rnu.iit.waelgroup.student.Models.Test;
@@ -45,22 +40,29 @@ public class TestsFragment extends Fragment  implements AbsListView.OnItemClickL
     private static final String ARG_PARAM2 = "param2";
     public static ArrayList<Test> tests = new ArrayList<Test>() ;
     private static String yourJsonStringUrl;
+    private static boolean load = true;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private static boolean load=true;
     private OnFragmentInteractionListener mListener;
 
     /**
      * The fragment's ListView/GridView.
      */
-    private ExpandableListView mListView;
+    private ListView mListView;
+
+    /**
+     * Mandatory empty constructor for the fragment manager to instantiate the
+     * fragment (e.g. upon screen orientation changes).
+     */
+    public TestsFragment() {
+    }
 
     /**
      * The Adapter which will be used to populate the ListView/GridView with
      * Views.
      */
-    private ListAdapter mAdapter;
+//    private MyExpandableListItemAdapter mAdapter;
 
     // TODO: Rename and change types of parameters
     public static TestsFragment newInstance(String param1, String param2) {
@@ -72,13 +74,6 @@ public class TestsFragment extends Fragment  implements AbsListView.OnItemClickL
         return fragment;
     }
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
-    public TestsFragment() {
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,7 +83,6 @@ public class TestsFragment extends Fragment  implements AbsListView.OnItemClickL
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
         if (load) {
             AsyncTaskParseJson dlTask = new AsyncTaskParseJson();
 
@@ -99,89 +93,64 @@ public class TestsFragment extends Fragment  implements AbsListView.OnItemClickL
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
         }
-        // TODO: Change Adapter to display your content
-        mAdapter = new ArrayAdapter<DummyContent.DummyItem>(getActivity(),
-                android.R.layout.simple_list_item_1, android.R.id.text1, DummyContent.ITEMS);
+
+        Log.i("sbe77777777", tests.get(1).getCourses());
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_tests, container, false);
+        View view = inflater.inflate(R.layout.fragment_tests_list, container, false);
+/*
+        Log.i("log_tag", " successful connexion with Database ");
+
+        mAdapter = new MyTestAdapter(getActivity(), tests);
+       // mAdapter.getContentView()
+        mListView = (AbsListView) view.findViewById(R.id.expandableListView);
+
+        AlphaInAnimationAdapter alphaInAnimationAdapter = new AlphaInAnimationAdapter(mAdapter);
+
+        Log.i("ccccccccccccccccccccc", "test");
+        alphaInAnimationAdapter.setAbsListView(mListView);
+      //  mAdapter.(mListView);
+        ((AdapterView<ListAdapter>) mListView).setAdapter(alphaInAnimationAdapter);
+        // Set OnItemClickListener so we can be notified on item clicks
+        mListView.setOnItemClickListener(this);
+*/
+
+        /*
+         mExpandableListItemAdapter = new MyExpandableListItemAdapter(this);
+        AlphaInAnimationAdapter alphaInAnimationAdapter = new AlphaInAnimationAdapter(mExpandableListItemAdapter);
+        alphaInAnimationAdapter.setAbsListView(getListView());
+
+        assert alphaInAnimationAdapter.getViewAnimator() != null;
+        alphaInAnimationAdapter.getViewAnimator().setInitialDelayMillis(INITIAL_DELAY_MILLIS);
+
+        getListView().setAdapter(alphaInAnimationAdapter);
+
+        * */
 
 
-try{
-        SimpleExpandableListAdapter expListAdapter;
-    expListAdapter = new SimpleExpandableListAdapter(  getActivity(),
-            createGroupList(),  R.layout.group_row, new String[] { "Group Item", "Group level" }, new int[] { R.id.row_name, R.id.level},
-            createChildList(),  R.layout.child_row, new String[] {"Sub Item"}, new int[] { R.id.grp_child}	);
-    mListView = (ExpandableListView) view.findViewById(R.id.expandableListView);
-    mListView.setAdapter( expListAdapter );		// setting the adapter in the list.
+      /*  mListView = (ListView)  view.findViewById(R.id.expandableListView);
 
-    }catch(Exception e){
-        System.out.println("Error " + e.getMessage());
-    }
-    return view;
-}
 
-// TestsFragment.tests.get(i).getSubject(), TestsFragment.tests.get(i).getLevel() );
-    /* Creating the Hashmap for the row */
-    @SuppressWarnings("unchecked")
-    private List createGroupList() {
-        ArrayList result = new ArrayList();
-        for( int i = 0 ; i < TestsFragment.tests.size() ; ++i ) { // 15 groups........
-            HashMap m = new HashMap();
-            m.put( "Group Item"," Test : "+ TestsFragment.tests.get(i).getSubject() ); // the key and it's value.
-            m.put( "Group level"," Level :"+ TestsFragment.tests.get(i).getLevel() ); // the key and it's value.
-            result.add( m );
-        }
-        return (List)result;
-    }
 
-    /* creatin the HashMap for the children */
-    @SuppressWarnings("unchecked")
-    private List createChildList() {
-        ArrayList result = new ArrayList();
-        for( int i = 0 ; i < TestsFragment.tests.size() ; ++i ) { // this -15 is the number of groups(Here it's fifteen)
-    	  /* each group need each HashMap-Here for each group we have 3 subgroups */
-            ArrayList secList = new ArrayList();
-                HashMap child = new HashMap();
-                child.put( "Sub Item", "By  "+TestsFragment.tests.get(i).getTeacher() + "\n"+ "In  "+TestsFragment.tests.get(i).getDate()+
-                        "At  "+TestsFragment.tests.get(i).getSession()+"\n"+TestsFragment.tests.get(i).getCourses());
-            result.add( secList );
-        }
-        return result;
-    }
+        mAdapter = new MyExpandableListItemAdapter(getActivity());
+        AlphaInAnimationAdapter alphaInAnimationAdapter = new AlphaInAnimationAdapter(mAdapter);
+   //    Log.i("test", "jjjjj");
+        alphaInAnimationAdapter.setAbsListView(mListView);
+        //assert alphaInAnimationAdapter.getViewAnimator() != null;
+        alphaInAnimationAdapter.getViewAnimator().setInitialDelayMillis(500);
+       Log.i("test", "jjjjj");
 
-    public void  onContentChanged  () {
-        System.out.println("onContentChanged");
-        View emptyView = getView().findViewById(android.R.id.empty);
-        mListView = (ExpandableListView)getView().findViewById(R.id.expandableListView);
-        if (mListView == null) {
-            throw new RuntimeException(
-                    "Your content must have a ExpandableListView whose id attribute is " +
-                            "'android.R.id.list'");
-        }
-        if (emptyView != null) {
-            mListView.setEmptyView(emptyView);
-        }
-    }
-    /* This function is called on each child click */
-    public boolean onChildClick( ExpandableListView parent, View v, int groupPosition,int childPosition,long id) {
-        System.out.println("Inside onChildClick at groupPosition = " + groupPosition +" Child clicked at position " + childPosition);
-        return true;
-    }
+        mListView.setAdapter(alphaInAnimationAdapter);*/
+        Log.i("test", "jjjjj");
 
-    /* This function is called on expansion of the group */
-    public void  onGroupExpand  (int groupPosition) {
-        try{
-            System.out.println("Group exapanding Listener => groupPosition = " + groupPosition);
-        }catch(Exception e){
-            System.out.println(" groupPosition Errrr +++ " + e.getMessage());
-        }
+        // mListView.setOnItemClickListener(this);
+
+        return view;
     }
 
     @Override
@@ -211,11 +180,11 @@ try{
         }
     }
 
-    /**
-     * The default content for this Fragment has a TextView that is shown when
-     * the list is empty. If you would like to change the text, call this method
-     * to supply the text it should use.
-     */
+    /*
+            * The default content for this Fragment has a TextView that is shown when
+    * the list is empty. If you would like to change the text, call this method
+    * to supply the text it should use.
+    */
     public void setEmptyText(CharSequence emptyText) {
         View emptyView = mListView.getEmptyView();
 
@@ -224,16 +193,11 @@ try{
         }
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
+    @Override
+    public void onStart() {
+        super.onStart();
+
+    }
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         public void onFragmentInteraction(int id);
@@ -242,11 +206,6 @@ try{
     public class AsyncTaskParseJson extends AsyncTask<String, String, String> {
         final String TAG = "AsyncTaskParseJson.java";
         JSONArray dataJsonArr = null;
-
-        @Override
-        protected void onPreExecute() {
-
-        }
         int id_test;
         String subject_test;
         String teacher_test;
@@ -258,6 +217,11 @@ try{
         String courses_test;
 
         @Override
+        protected void onPreExecute() {
+
+        }
+
+        @Override
         protected String doInBackground(String... arg0) {
 
             try {
@@ -266,7 +230,7 @@ try{
 
                 Log.i("test json object ", "test");
                 // get json string from url
-                JSONObject json = jParser.getJSONFromUrl(getString(R.string.url_base_student)+"/alltests.php");
+                JSONObject json = jParser.getJSONFromUrl(getString(R.string.url_base_student) + "/alltests.php", null);
                 dataJsonArr= json.getJSONArray("auth");
                 Log.i("test json object ", "test");
                 for(int i=0;i<dataJsonArr.length();i++){
@@ -281,9 +245,9 @@ try{
                     duration_test = c.getString("duration_test");
                     courses_test = c.getString("courses_test");
                    // if (id_test!=0)
-                        tests.add(new Test(id_test,subject_test, teacher_test, level_test,session_test,
-                                date_test,duration_test,courses_test));
-        Log.i("test isert test", courses_test);
+                    tests.add(new Test(id_test, subject_test, teacher_test, level_test, session_test,
+                            date_test, duration_test, courses_test));
+                    //   Log.i("test isert test", courses_test);
                     returnString += "\n\t"+subject_test+":"+level_test;
                 }
 
@@ -297,11 +261,9 @@ try{
 
         @Override
         protected void onPostExecute(String str) {
-
+            Log.i("test isert test", courses_test);
             load = false;
         }
     }
-
-
 
 }

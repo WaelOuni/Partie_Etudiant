@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -37,33 +36,34 @@ import rnu.iit.waelgroup.student.Models.JsonParser;
  */
 public class CoursesFragment extends Fragment implements AbsListView.OnItemClickListener {
 
-    private static boolean load=true;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    public static ArrayList<Course> courses = new ArrayList<Course>();
+    public static String yourJsonStringUrl;
+    public View view;
+    private boolean load = true;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
-    public static ArrayList<Course> courses = new ArrayList<Course>() ;
-
-
     private OnFragmentInteractionListener mListener;
-
     /**
      * The fragment's ListView/GridView.
      */
     private AbsListView mListView;
-    //Building Parameters
-  //  List<NameValuePair> params = new ArrayList<NameValuePair>();
-    public ProgressBar pb;
     /**
      * The Adapter which will be used to populate the ListView/GridView with
      * Views.
      */
     private MySubjectsAdapter mAdapter ;
-    public static String yourJsonStringUrl;
+
+    /**
+     * Mandatory empty constructor for the fragment manager to instantiate the
+     * fragment (e.g. upon screen orientation changes).
+     */
+    public CoursesFragment() {
+    }
 
     // TODO: Rename and change types of parameters
     public static CoursesFragment newInstance(String param1, String param2) {
@@ -73,13 +73,6 @@ public class CoursesFragment extends Fragment implements AbsListView.OnItemClick
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
-    }
-
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
-    public CoursesFragment() {
     }
 
     @Override
@@ -108,19 +101,15 @@ public class CoursesFragment extends Fragment implements AbsListView.OnItemClick
         }
     }
 
-    public View view;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
 
         Log.i("log_tag", " successful connexion with Database ");
 
         view = inflater.inflate(R.layout.fragment_courses_list, container, false);
         Log.i("adapter test", courses.get(2).getDescription());
         // TODO: Change Adapter to display your content
-        //     mAdapter = new ArrayAdapter<DummyContent.DummyItem>(getActivity(),
-        //           android.R.layout.simple_list_item_1, android.R.id.text1, DummyContent.ITEMS);
         mAdapter = new MySubjectsAdapter(getActivity(),R.layout.item_subject, EspaceEtudiant.subjects);
         mListView = (AbsListView) view.findViewById(android.R.id.list);
         ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
@@ -194,17 +183,10 @@ public class CoursesFragment extends Fragment implements AbsListView.OnItemClick
         public void onFragmentInteraction(int id);
     }
 
-
     public class AsyncTaskParseJson extends AsyncTask<String, String, String> {
 
         final String TAG = "AsyncTaskParseJson.java";
         JSONArray dataJsonArr = null;
-
-        @Override
-        protected void onPreExecute() {
-
-        }
-
         int idCourse;
         String name;
         String description;
@@ -213,6 +195,11 @@ public class CoursesFragment extends Fragment implements AbsListView.OnItemClick
         String teacher;
         String dateDepo;
         String subject;
+
+        @Override
+        protected void onPreExecute() {
+
+        }
 
         @Override
         protected String doInBackground(String... arg0) {
@@ -224,7 +211,7 @@ public class CoursesFragment extends Fragment implements AbsListView.OnItemClick
 
                 Log.i("test json object ", "test");
                 // get json string from url
-                JSONObject json = jParser.getJSONFromUrl(getString(R.string.url_base_student)+"/allcourses.php");
+                JSONObject json = jParser.getJSONFromUrl(getString(R.string.url_base_student) + "/allcourses.php", null);
                 dataJsonArr= json.getJSONArray("auth");
   //              Log.i("test json object ", "test");
                 for(int i=0;i<dataJsonArr.length();i++){
@@ -256,7 +243,5 @@ public class CoursesFragment extends Fragment implements AbsListView.OnItemClick
              load = false;
         }
     }
-
-
 
 }

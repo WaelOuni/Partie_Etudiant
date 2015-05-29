@@ -12,24 +12,17 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.gson.Gson;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
 import java.util.ArrayList;
 
 import rnu.iit.waelgroup.student.Adapters.MyResultAdapter;
+import rnu.iit.waelgroup.student.Models.JsonParserSelectedQuery;
 import rnu.iit.waelgroup.student.Models.Resultat;
 import rnu.iit.waelgroup.student.dummy.DummyContent;
 
@@ -44,30 +37,34 @@ import rnu.iit.waelgroup.student.dummy.DummyContent;
  */
 public class ResultsFragment extends Fragment implements AbsListView.OnItemClickListener {
 
-    public static ArrayList<Resultat> results = new ArrayList<Resultat>() ;
-
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    public static ArrayList<Resultat> results = new ArrayList<Resultat>();
+    private static boolean load = true;
+    private static ArrayList<NameValuePair> data;
+    private static String yourJsonStringUrl;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
     private OnFragmentInteractionListener mListener;
-
     /**
      * The fragment's ListView/GridView.
      */
     private AbsListView mListView;
-
     /**
      * The Adapter which will be used to populate the ListView/GridView with
      * Views.
      */
     private MyResultAdapter mAdapter;
-    private static String yourJsonStringUrl;
+
+    /**
+     * Mandatory empty constructor for the fragment manager to instantiate the
+     * fragment (e.g. upon screen orientation changes).
+     */
+    public ResultsFragment() {
+    }
 
     // TODO: Rename and change types of parameters
     public static ResultsFragment newInstance(String param1, String param2) {
@@ -79,13 +76,6 @@ public class ResultsFragment extends Fragment implements AbsListView.OnItemClick
         return fragment;
     }
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
-    public ResultsFragment() {
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,20 +85,20 @@ public class ResultsFragment extends Fragment implements AbsListView.OnItemClick
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        AsyncTaskParseJson dlTask = new AsyncTaskParseJson();
 
-        dlTask.execute();
+        data = new ArrayList<NameValuePair>();
+        data.add(new BasicNameValuePair("cin_etudiant", EspaceEtudiant.cin_key));
 
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        if (load) {
+            AsyncTaskParseJson dlTask = new AsyncTaskParseJson();
+            dlTask.execute();
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
 
-
-        // TODO: Change Adapter to display your content
-        mAdapter = new MyResultAdapter(getActivity(),
-                R.layout.item_resultat,results);
     }
 
     @Override
@@ -116,10 +106,11 @@ public class ResultsFragment extends Fragment implements AbsListView.OnItemClick
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_results, container, false);
 
+        mAdapter = new MyResultAdapter(getActivity(),
+                R.layout.item_resultat, results);
         // Set the adapter
         mListView = (AbsListView) view.findViewById(android.R.id.list);
         ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
-
         // Set OnItemClickListener so we can be notified on item clicks
         mListView.setOnItemClickListener(this);
 
@@ -183,55 +174,60 @@ public class ResultsFragment extends Fragment implements AbsListView.OnItemClick
 
 
     public class AsyncTaskParseJson extends AsyncTask<String, String, String> {
-
         final String TAG = "AsyncTaskParseJson.java";
         JSONArray dataJsonArr = null;
+        String nom;
+        String prenom;
+        int numrepjust;
+        int numrepfalse;
+        String mention;
+        int rapidite;
+        String subject_test;
+        String returnString = "";
 
         @Override
         protected void onPreExecute() {
         }
 
-        String returnString="";
         @Override
         protected String doInBackground(String... arg0) {
-            InputStream source = retrieveStream(yourJsonStringUrl);
-            Gson gson = new Gson();
-            Reader reader = new InputStreamReader(source);
-            Resultat response = gson.fromJson(reader, Resultat.class);
-            Toast.makeText(getActivity(), response.getMention(), Toast.LENGTH_SHORT).show();
-            //List<Resultat> results = response.;
-            results.add(response);
-            Log.i("result ", response.getMention());
+
+            try {
+                // instantiate our json parser `cin_etudiant`, `numrepjust`, `numrepfalse`, `mention`, `rapidite`, ``
+                JsonParserSelectedQuery jParser = new JsonParserSelectedQuery();
+                Log.i("test json object ", "test");
+                // get json string from url
+                JSONObject json = jParser.getJSONFromUrl(getString(R.string.url_base_student) + "/resultattestSecond.php", data);
+                dataJsonArr = json.getJSONArray("auth");
+                Log.i("test json object ", "test");
+                for (int i = 0; i < dataJsonArr.length(); i++) {
+                    JSONObject c = dataJsonArr.getJSONObject(i);
+                    // Storing each json item in variable
+                    nom = c.getString("nom");
+                    prenom = c.getString("prenom");
+                    numrepjust = c.getInt("numrepjust");
+                    numrepfalse = c.getInt("numrepfalse");
+                    mention = c.getString("mention");
+                    rapidite = c.getInt("rapidite");
+                    subject_test = c.getString("subject_test");
+                    // if (id_test!=0)
+                    results.add(new Resultat(nom, prenom, numrepjust, numrepfalse, mention, rapidite, subject_test));
+                    //   Log.i("test isert test", courses_test);
+                    returnString += "";
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             return returnString;
         }
 
+
         @Override
         protected void onPostExecute(String str) {
-            Log.i("test json object ", "test");
-            //load = false;
+            // Log.i("test isert test", courses_test);
+            load = false;
         }
     }
 
-    private InputStream retrieveStream(String url) {
-        DefaultHttpClient client = new DefaultHttpClient();
-        HttpGet getRequest = new HttpGet(url);
-        try {
-            HttpResponse getResponse = client.execute(getRequest);
-            final int statusCode = getResponse.getStatusLine().getStatusCode();
-            if (statusCode != HttpStatus.SC_OK) {
-                Log.w(getClass().getSimpleName(),
-                        "Error " + statusCode + " for URL " + url);
-                return null;
-            }
-            HttpEntity getResponseEntity = getResponse.getEntity();
-            return getResponseEntity.getContent();
 
-        }
-        catch (IOException e) {
-            getRequest.abort();
-            Log.w(getClass().getSimpleName(), "Error for URL " + url, e);
-        }
-        return null;
-
-    }
 }

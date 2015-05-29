@@ -4,27 +4,15 @@
     android:layout_height="fill_parent">
 
     <TextView android:id="@+id/row_name"
-        android:paddingLeft="50px"
-        android:textSize="40px"
-        android:textColor="#ff000000"
-        android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="test :"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/level"
-        android:text="level"
-        android:layout_marginRight="32dp"
-        android:layout_marginEnd="32dp"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignBottom="@+id/row_name" />
+        android:paddingLeft="50px"
+        android:text="test :"
+        android:textColor="#ff000000"
+        android:textSize="40px"
+        android:textStyle="bold" />
 
 </RelativeLayout>

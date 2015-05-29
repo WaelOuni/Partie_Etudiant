@@ -1,10 +1,15 @@
 package rnu.iit.waelgroup.student;
 
+import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
@@ -29,11 +34,28 @@ import rnu.iit.waelgroup.student.Models.Course;
 
 public class ListCourses extends ActionBarActivity implements LoaderManager.LoaderCallbacks<Cursor>,AdapterView.OnItemClickListener {
 
-    private AbsListView mListView;
     public ArrayList<Course> courses = new ArrayList<Course>() ;
+    private AbsListView mListView;
     private MyClickableListAdapter mAdapter ;
     private TextView empty;
     private SimpleCursorAdapter adapt;
+
+    public static boolean isDownloadManagerAvailable(Context context) {
+        try {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.GINGERBREAD) {
+                return false;
+            }
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_LAUNCHER);
+            intent.setClassName("com.android.providers.downloads.ui", "com.android.providers.downloads.ui.DownloadList");
+            List<ResolveInfo> list = context.getPackageManager().queryIntentActivities(intent,
+                    PackageManager.MATCH_DEFAULT_ONLY);
+            return list.size() > 0;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,7 +107,6 @@ public class ListCourses extends ActionBarActivity implements LoaderManager.Load
 
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -129,6 +150,7 @@ public class ListCourses extends ActionBarActivity implements LoaderManager.Load
             adapt.swapCursor(data);
 
         }
+
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         adapt.swapCursor(null);
@@ -136,17 +158,15 @@ public class ListCourses extends ActionBarActivity implements LoaderManager.Load
 
     static class MyViewHolder extends ClickableListAdapter.ViewHolder {
 
+        Button view, download;
+        TextView name, date;
         public MyViewHolder( TextView name ,  TextView date ,Button view, Button download) {
             name = this.name;
             date = this.date;
             download = this.download;
             view = this.view;
         }
-        Button view,download;
-        TextView name, date;
     }
-
-
 
     private class MyClickableListAdapter extends ClickableListAdapter {
         public MyClickableListAdapter(Context context, int viewid,
@@ -164,7 +184,7 @@ public class ListCourses extends ActionBarActivity implements LoaderManager.Load
           }
 
         @Override
-        protected ViewHolder createHolder(View v, int position) {
+        protected ViewHolder createHolder(View v, final int position) {
             // createHolder will be called only as long, as the ListView is not filled
             // entirely. That is, where we gain our performance:
             // We use the relatively costly findViewById() methods and
@@ -183,15 +203,29 @@ public class ListCourses extends ActionBarActivity implements LoaderManager.Load
             view_btn.setOnClickListener(new ClickableListAdapter.OnClickListener(mvh) {
 
                 public void onClick(View v, ViewHolder viewHolder) {
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.mkyong.com"));
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(courses.get(position).getUrl()));
                     startActivity(browserIntent);
-                    Toast.makeText(getApplicationContext(), "test View button ", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "test View button " + position, Toast.LENGTH_LONG).show();
                 }
             });
 
             download_btn.setOnClickListener(new ClickableListAdapter.OnClickListener(mvh) {
                 public void onClick(View v, ViewHolder viewHolder) {
-                    Toast.makeText(getApplicationContext(), "test download button ", Toast.LENGTH_LONG).show();
+
+                    String url = courses.get(position).getUrl();
+                    DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
+                    request.setDescription("" + courses.get(position).getDescription());
+                    request.setTitle("" + courses.get(position).getName());
+                    // in order for this if to run, you must use the android 3.2 to compile your app
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                        request.allowScanningByMediaScanner();
+                        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                    }
+                    request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "name-of-the-file.ext");
+                    // get download service and enqueue file
+                    DownloadManager manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+                    manager.enqueue(request);
+                    // Toast.makeText(getApplicationContext(), "test download button ", Toast.LENGTH_LONG).show();
                 }
             });
             return mvh; // finally, we return our new holder

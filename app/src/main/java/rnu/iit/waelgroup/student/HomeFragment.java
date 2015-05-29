@@ -23,6 +23,7 @@ import rnu.iit.waelgroup.student.Adapters.MyHomeAdapter;
 import rnu.iit.waelgroup.student.Models.Course;
 import rnu.iit.waelgroup.student.Models.Home;
 import rnu.iit.waelgroup.student.Models.JsonParser;
+import rnu.iit.waelgroup.student.Models.Test;
 import rnu.iit.waelgroup.student.dummy.DummyContent;
 
 /**
@@ -36,19 +37,17 @@ import rnu.iit.waelgroup.student.dummy.DummyContent;
  */
 public class HomeFragment extends Fragment implements AbsListView.OnItemClickListener {
 
-    public static ArrayList<Home> homes = new ArrayList<Home>() ;
-
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    public static ArrayList<Home> homes = new ArrayList<Home>();
+    static ArrayList<Course> courses;
+    static ArrayList<Test> tests;
     private static boolean load=true;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    static ArrayList<Course> courses;
-
     private OnFragmentInteractionListener mListener;
 
     /**
@@ -62,23 +61,24 @@ public class HomeFragment extends Fragment implements AbsListView.OnItemClickLis
      */
     private MyHomeAdapter mAdapter;
 
+    /**
+     * Mandatory empty constructor for the fragment manager to instantiate the
+     * fragment (e.g. upon screen orientation changes).
+     */
+    public HomeFragment() {
+    }
+
     // TODO: Rename and change types of parameters
     public static HomeFragment newInstance(String param1, String param2) {
 
         courses = new ArrayList<Course>();
+        tests = new ArrayList<Test>();
         HomeFragment fragment = new HomeFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
-    }
-
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
-    public HomeFragment() {
     }
 
     @Override
@@ -90,17 +90,10 @@ public class HomeFragment extends Fragment implements AbsListView.OnItemClickLis
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-
         if(load) {
             AsyncTaskParseJson dlTask = new AsyncTaskParseJson();
             dlTask.execute(LoginActivity.yourJsonStringUrl);
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
         }
-
 
         // TODO: Change Adapter to display your content
         mAdapter = new MyHomeAdapter(getActivity(),R.layout.item_home, homes);
@@ -110,7 +103,11 @@ public class HomeFragment extends Fragment implements AbsListView.OnItemClickLis
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         // Set the adapter
         mListView = (AbsListView) view.findViewById(R.id.list_home);
         ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
@@ -170,12 +167,6 @@ public class HomeFragment extends Fragment implements AbsListView.OnItemClickLis
     public class AsyncTaskParseJson extends AsyncTask<String, String, String> {
         final String TAG = "AsyncTaskParseJson.java";
         JSONArray dataJsonArr = null;
-
-        @Override
-        protected void onPreExecute() {
-
-        }
-
         int idCourse;
         String name;
         String description;
@@ -184,20 +175,28 @@ public class HomeFragment extends Fragment implements AbsListView.OnItemClickLis
         String teacher;
         String dateDepo;
         String subject;
+        int id_test;
+        String level_test;
+        String session_test;
+        String date_test;
+        int duration_test;
+        String courses_test;
+        int numquestchoisis;
+
+        @Override
+        protected void onPreExecute() {
+        }
 
         @Override
         protected String doInBackground(String... arg0) {
 
             try {
-
                 // instantiate our json parser
                 JsonParser jParser = new JsonParser();
-
                 Log.i("test json object ", "test");
                 // get json string from url
-                JSONObject json = jParser.getJSONFromUrl(getString(R.string.url_base_student)+"/allcourses.php");
+                JSONObject json = jParser.getJSONFromUrl(getString(R.string.url_base_student) + "/allcourses.php", null);
                 dataJsonArr= json.getJSONArray("auth");
-                //              Log.i("test json object ", "test");
                 for(int i=0;i<dataJsonArr.length();i++){
                     JSONObject c = dataJsonArr.getJSONObject(i);
                     // Storing each json item in variable
@@ -208,11 +207,18 @@ public class HomeFragment extends Fragment implements AbsListView.OnItemClickLis
                     teacher = c.getString("teacher_course");
                     dateDepo = c.getString("date_depo_course");
                     subject = c.getString("name_subject");
+/*                    id_test= c.getInt("id_test");
+                    level_test= c.getString("level_test");
+                    session_test= c.getString("session_test");
+                    date_test= c.getString("date_test");
+                    duration_test= c.getInt("duration_test");
+                    courses_test= c.getString("courses_test");
+                    numquestchoisis= c.getInt("numquestchoisis");*/
                     //`id_test`, `subject_test`, `teacher_test`, `level_test`, `session_test`, `date_test`, `duration_test`, `courses_test`, `numquestchoisis`
-
                     if (idCourse!=0)
                         courses.add(new Course(idCourse,name,description, url,teacher,dateDepo,subject));
-
+                 /*   else
+                        tests.add(new Test(id_test,subject,teacher,level_test,Integer.getInteger(session_test),date_test,Integer.toString(duration_test),courses_test));*/
                     returnString += "\n\t"+name+":"+description+":"+url+":"+teacher+":"+dateDepo+":"+subject;
                 }
 

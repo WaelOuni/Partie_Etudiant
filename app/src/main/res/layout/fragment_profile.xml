@@ -1,22 +1,24 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" tools:context="rnu.iit.waelgroup.student.Profile">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="rnu.iit.waelgroup.student.Profile">
+
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical" >
+        android:orientation="vertical">
+
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="67dp"
+            android:layout_weight="0.04"
             android:weightSum="1">
-
-            <ImageView
-                android:id="@+id/profilestudent"
-                android:layout_width="61dp"
-                android:layout_height="82dp"
-                android:src="@drawable/logo_learning"
-                android:layout_weight="0.08" />
 
             <TextView
                 android:id="@+id/profilestatic"
@@ -25,23 +27,42 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="50dp"
                 android:text="My profile"
-                android:textSize="32dp"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="32dp" />
+
+            <ImageView
+                android:id="@+id/profilestudentImg"
+                android:layout_width="61dp"
+                android:layout_height="82dp"
+                android:layout_marginLeft="65dp"
+
+                android:layout_weight="0.08"
+                android:src="@drawable/logo_learning" />
+
+            <ProgressBar
+                android:id="@+id/pbUpdateProfile"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="65dp"
+                android:visibility="gone" />
+
         </LinearLayout>
 
         <RelativeLayout
-            android:layout_width="match_parent"
+            android:id="@+id/relativeLayout"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.80" >
+            android:layout_weight="1.00">
 
             <LinearLayout
                 android:id="@+id/linearLayout1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="38dp"
-                android:layout_marginTop="10dp" >
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true">
 
                 <ImageView
                     android:id="@+id/mytof"
@@ -50,90 +71,188 @@
                     android:src="@drawable/profile" />
 
                 <TextView
-                    android:id="@+id/remarqueTxt"
+                    android:id="@+id/NamePrenameTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:text="Ouni Wael"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
+
             </LinearLayout>
 
             <TextView
-                android:id="@+id/noteFinTestTxt"
+                android:id="@+id/mailTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/linearLayout1"
-                android:layout_below="@+id/linearLayout1"
-                android:layout_marginTop="37dp"
+                android:layout_below="@+id/updateProfile"
+                android:layout_marginEnd="42dp"
+                android:layout_marginRight="42dp"
+                android:layout_marginTop="56dp"
+                android:layout_toLeftOf="@+id/mailValue"
+                android:layout_toStartOf="@+id/mailValue"
                 android:text="Your mail :" />
 
             <TextView
-                android:id="@+id/noteFinTest"
+                android:id="@+id/mailValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/noteFinTestTxt"
+                android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="46dp"
+                android:layout_alignTop="@+id/mailTxt"
+                android:layout_marginEnd="61dp"
+                android:layout_marginRight="61dp"
                 android:text="waelounie@gmail.com"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
-            <TextView
-                android:id="@+id/mentionfinTestTxt"
+            <EditText
+                android:id="@+id/mailEdit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/noteFinTestTxt"
-                android:layout_below="@+id/noteFinTestTxt"
-                android:layout_marginTop="51dp"
+                android:layout_alignLeft="@+id/phoneValue"
+                android:layout_alignStart="@+id/phoneValue"
+                android:layout_alignTop="@+id/mailTxt"
+                android:text="waelounie@gmail.com"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/passwordTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/mailTxt"
+                android:layout_alignStart="@+id/mailTxt"
+                android:layout_below="@+id/mailValue"
+                android:layout_marginTop="29dp"
                 android:text="Password :" />
 
             <TextView
-                android:id="@+id/mentionFinTest"
+                android:id="@+id/passwordValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/mentionfinTestTxt"
-                android:layout_alignBottom="@+id/mentionfinTestTxt"
-                android:layout_alignLeft="@+id/noteFinTest"
-                android:text="*********"
+                android:layout_alignBottom="@+id/passwordTxt"
+                android:layout_alignLeft="@+id/mailValue"
+                android:layout_alignStart="@+id/mailValue"
+                android:password="true"
+                android:text="waelPassword"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
-            <TextView
+
+            <EditText
+                android:id="@+id/passwordEdit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Your level :"
-                android:id="@+id/textView3"
-                android:layout_below="@+id/mentionfinTestTxt"
-                android:layout_alignLeft="@+id/mentionfinTestTxt"
-                android:layout_alignStart="@+id/mentionfinTestTxt"
-                android:layout_marginTop="47dp" />
+                android:layout_alignLeft="@+id/passwordValue"
+                android:layout_alignStart="@+id/passwordValue"
+                android:layout_alignTop="@+id/passwordValue"
+                android:password="true"
+                android:text="waelPassword"
+                android:visibility="gone" />
 
             <TextView
+                android:id="@+id/levelTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="bac"
-                android:id="@+id/textView4"
-                android:layout_alignTop="@+id/textView3"
-                android:layout_alignLeft="@+id/mentionFinTest"
-                android:layout_alignStart="@+id/mentionFinTest" />
+                android:layout_alignLeft="@+id/passwordTxt"
+                android:layout_alignStart="@+id/passwordTxt"
+                android:layout_below="@+id/passwordValue"
+                android:layout_marginTop="48dp"
+                android:text="Your level :" />
 
             <TextView
+                android:id="@+id/levelValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Phone number :"
-                android:id="@+id/textView5"
-                android:layout_below="@+id/textView3"
-                android:layout_alignLeft="@+id/textView3"
-                android:layout_alignStart="@+id/textView3"
-                android:layout_marginTop="57dp" />
+                android:layout_alignLeft="@+id/passwordValue"
+                android:layout_alignStart="@+id/passwordValue"
+                android:layout_alignTop="@+id/levelTxt"
+                android:text="baccalauriat" />
+
+
+            <EditText
+                android:id="@+id/levelEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/passwordValue"
+                android:layout_alignStart="@+id/passwordValue"
+                android:layout_alignTop="@+id/levelTxt"
+                android:text="baccalauriat"
+                android:visibility="gone" />
 
             <TextView
+                android:id="@+id/phoneTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/levelTxt"
+                android:layout_alignStart="@+id/levelTxt"
+                android:layout_below="@+id/levelTxt"
+                android:layout_marginTop="40dp"
+                android:text="Phone number :" />
+
+            <TextView
+                android:id="@+id/phoneValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/classTxt"
+                android:layout_toEndOf="@+id/mailTxt"
+                android:layout_toRightOf="@+id/mailTxt"
+                android:text="99663587" />
+
+
+            <EditText
+                android:id="@+id/phoneEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/levelValue"
+                android:layout_alignStart="@+id/levelValue"
+
+                android:layout_alignTop="@+id/phoneTxt"
+                android:inputType="phone"
                 android:text="99663587"
-                android:id="@+id/textView6"
-                android:layout_alignTop="@+id/textView5"
-                android:layout_alignLeft="@+id/textView4"
-                android:layout_alignStart="@+id/textView4" />
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/classTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/phoneTxt"
+                android:layout_alignStart="@+id/phoneTxt"
+                android:layout_below="@+id/phoneTxt"
+                android:layout_marginTop="36dp"
+                android:text="N° Class :"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/classValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/phoneValue"
+                android:layout_alignStart="@+id/phoneValue"
+                android:layout_alignTop="@+id/classTxt"
+                android:text="20"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <EditText
+                android:id="@+id/classEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/phoneValue"
+                android:layout_alignStart="@+id/phoneValue"
+                android:layout_alignTop="@+id/classTxt"
+                android:inputType="phone"
+                android:text="1"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/updateProfile"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/linearLayout1"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:text="Make changes" />
 
         </RelativeLayout>
 
     </LinearLayout>
-
+    </ScrollView>
 </FrameLayout>

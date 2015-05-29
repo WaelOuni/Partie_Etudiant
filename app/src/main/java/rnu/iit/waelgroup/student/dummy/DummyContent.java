@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 
 import rnu.iit.waelgroup.student.Models.Course;
-import rnu.iit.waelgroup.student.Models.Etudiant;
 
 /**
  * Helper class for providing sample content for user interfaces created by
@@ -22,14 +21,17 @@ public class DummyContent {
      */
     public static List<DummyItem> ITEMS = new ArrayList<DummyItem>();
     public static ArrayList<Course> courses = new ArrayList<Course>() ;
-
+    /**
+     * A map of sample (dummy) items, by ID.
+     */
+    public static Map<String, DummyItem> ITEM_MAP = new HashMap<String, DummyItem>();
 
     static {
         /**
          * A map of sample (students) items, by ID.
          */
 
-        Etudiant e1 = new Etudiant(14207208,"Ouni", "Wael",1, "homme", "waelounie@gmail.com", "+21699663587","bac", "1234567859");
+        //    Etudiant e1 = new Etudiant(14207208,"Ouni", "Wael",1, "homme", "waelounie@gmail.com", "+21699663587","bac", "1234567859");
 
 
 /*
@@ -56,11 +58,6 @@ public class DummyContent {
         courses.add(c5);
         courses.add(c6);*/
     }
-
-    /**
-     * A map of sample (dummy) items, by ID.
-     */
-    public static Map<String, DummyItem> ITEM_MAP = new HashMap<String, DummyItem>();
 
     static {
         // Add 3 sample items.

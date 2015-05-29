@@ -40,4 +40,5 @@ public class MyCoursesAdapter extends ArrayAdapter<Course> {
         tx2.setText("downloaded at : "+course.getDateDepo().toString());
         return view;
     }
+
 }
