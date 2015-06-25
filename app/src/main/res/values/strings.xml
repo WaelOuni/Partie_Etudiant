@@ -35,4 +35,14 @@
     <string name="title_activity_preferences_with_headers">PreferencesWithHeaders</string>
     <string name="title_activity_show_settings">ShowSettingsActivity</string>
 
+        <string-array name="levels_array">
+            <item>1 ére informatique</item>
+            <item>2 éme informatique</item>
+            <item>3 éme informatique</item>
+            <item>1 ére sciences</item>
+            <item>2 éme sciences</item>
+            <item>3 éme sciences</item>
+        </string-array>
+    <string name="title_activity_lancer_test">LancerTest</string>
+
 </resources>

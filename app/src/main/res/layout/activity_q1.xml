@@ -1,0 +1,74 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.myprojectetudiant.Q1"
+    tools:ignore="MergeRootFrame" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" >
+
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/q1" />
+
+            <TextView
+                android:id="@+id/q1Txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Question n°1"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.89" >
+
+            <TextView
+                android:id="@+id/q1enonce"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="53dp"
+                android:text="1) "
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/repQ1Input"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/q1enonce"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="52dp"
+                android:ems="10"
+                android:hint="Repondre içi" >
+
+                <requestFocus />
+            </EditText>
+
+            <Button
+                android:id="@+id/suivantBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/repQ1Input"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="66dp"
+                android:text="question suivant" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+</FrameLayout>
+

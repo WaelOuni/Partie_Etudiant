@@ -1,0 +1,7 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="rnu.iit.waelgroup.student.HomeFragment">
+    <item android:id="@+id/action_fragment" android:title="refresh"
+        android:orderInCategory="100" app:showAsAction="collapseActionView" />
+</menu>

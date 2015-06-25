@@ -3,8 +3,6 @@ package rnu.iit.waelgroup.student;
 import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
@@ -15,22 +13,22 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import rnu.iit.waelgroup.student.Adapters.ClickableListAdapter;
 import rnu.iit.waelgroup.student.Models.Course;
-
+import rnu.iit.waelgroup.student.Util.OnlineChecker;
 
 public class ListCourses extends ActionBarActivity implements LoaderManager.LoaderCallbacks<Cursor>,AdapterView.OnItemClickListener {
 
@@ -40,7 +38,10 @@ public class ListCourses extends ActionBarActivity implements LoaderManager.Load
     private TextView empty;
     private SimpleCursorAdapter adapt;
 
-    public static boolean isDownloadManagerAvailable(Context context) {
+
+    // fct can acces for the detail to download process
+
+   /* public static boolean isDownloadManagerAvailable(Context context) {
         try {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.GINGERBREAD) {
                 return false;
@@ -55,14 +56,18 @@ public class ListCourses extends ActionBarActivity implements LoaderManager.Load
             return false;
         }
     }
-
+*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_courses);
+
         empty = (TextView) findViewById(R.id.emptyCourses);
         empty.setVisibility(View.INVISIBLE);
         String subject;
+        OnlineChecker oc = new OnlineChecker();
+
+            if (oc.isOnline(getApplicationContext())) {
         Bundle  extras = getIntent().getExtras();
         if(extras == null) {
         } else {
@@ -79,32 +84,24 @@ public class ListCourses extends ActionBarActivity implements LoaderManager.Load
                 empty.setVisibility(View.VISIBLE);
             }
             }
+    }
+    else {
+        Toast.makeText(getApplicationContext(),"Network isn't available", Toast.LENGTH_LONG).show();
+    }
+
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
 
         mAdapter = new MyClickableListAdapter(getApplicationContext(),R.layout.item_course,courses);
         mListView = (AbsListView) findViewById(R.id.listCourses);
         ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
         // Set OnItemClickListener so we can be notified on item clicks
         mListView.setOnItemClickListener(this);
-
-        ////////////////////////////////////////////    provider test work ////////////////////////////////////////////////////////
-
-/*
-        final String[] projection = {myCustomProvider.ITEM_ID,myCustomProvider.COURSE, myCustomProvider.DAT};
-
-        final String[] uiBindFrom = {myCustomProvider.COURSE,  myCustomProvider.DAT};
-
-        final int[] uiBindTo = {R.id.course_name, R.id.date_depo_course};
-
-        Cursor cursor = getContentResolver().query(myCustomProvider.CONTENT_URI, projection,
-                null, null, null);
-
-        adapt = new SimpleCursorAdapter(
-                getApplicationContext(), R.layout.item_course,
-                cursor, uiBindFrom, uiBindTo,
-                CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
-
-        mListView.setAdapter(adapt);*/
-
     }
 
     @Override
@@ -120,9 +117,10 @@ public class ListCourses extends ActionBarActivity implements LoaderManager.Load
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            startActivity(new Intent(getApplicationContext(), QuickPrefsActivity.class));
+
             return true;
         }
 
@@ -131,6 +129,7 @@ public class ListCourses extends ActionBarActivity implements LoaderManager.Load
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Toast.makeText(getApplicationContext(), "id : "+position, Toast.LENGTH_LONG).show();
 
     }
 
@@ -173,7 +172,7 @@ public class ListCourses extends ActionBarActivity implements LoaderManager.Load
                                       List<Course> objects) {
             super(context, viewid, objects);
             // nothing to do
-        }
+           }
 
         protected void bindHolder(ViewHolder h) {
             // Binding the holder keeps our data up to date.
@@ -189,13 +188,49 @@ public class ListCourses extends ActionBarActivity implements LoaderManager.Load
             // entirely. That is, where we gain our performance:
             // We use the relatively costly findViewById() methods and
             // bind the view's reference to the holder objects.
+            ImageView img = (ImageView) v.findViewById(R.id.courseIcon) ;
             TextView name = (TextView) v.findViewById(R.id.course_name);
             TextView date = (TextView) v.findViewById(R.id.date_depo_course);
+
+            TextView tx4 = (TextView) v.findViewById(R.id.course_icon);
+
             Button view_btn = (Button)v.findViewById(R.id.view_course);
             Button download_btn = (Button)v.findViewById(R.id.download_course);
+
+            tx4.setText(courses.get(position).getSubject().substring(0,2));
             name.setText(courses.get(position).getName());
+            Log.i("testtttttt",name.getText().toString());
             date.setText(courses.get(position).getDateDepo());
             ViewHolder mvh = new MyViewHolder(name, date, view_btn, download_btn);
+/*
+
+            switch (courses.get(position).getSubject()) {
+
+                case "math":
+                    img.setImageResource(R.drawable.math);
+                    break;
+
+                case "physics":
+
+                    img.setImageResource(R.drawable.basicphysics);
+                    break;
+
+                case "android":
+
+                    img.setImageResource(R.drawable.ic_launcher);
+                    break;
+
+                case "french":
+
+                    img.setImageResource(R.drawable.french);
+                    break;
+
+                case "english":
+
+                    img.setImageResource(R.drawable.english);
+                    break;
+            }
+*/
 
             // Additionally, we make some icons clickable
             // Mind, that item becomes clickable, when adding a click listener (see API)
@@ -211,7 +246,6 @@ public class ListCourses extends ActionBarActivity implements LoaderManager.Load
 
             download_btn.setOnClickListener(new ClickableListAdapter.OnClickListener(mvh) {
                 public void onClick(View v, ViewHolder viewHolder) {
-
                     String url = courses.get(position).getUrl();
                     DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
                     request.setDescription("" + courses.get(position).getDescription());

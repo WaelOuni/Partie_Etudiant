@@ -38,7 +38,7 @@ public class JsonParser {
             if (nameValuePairs != null) {
                 httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
-                Log.i(nameValuePairs.get(0).getName(), nameValuePairs.get(0).getValue());
+//                Log.i(nameValuePairs.get(0).getName(), nameValuePairs.get(0).getValue());
             }
             HttpResponse httpResponse = httpClient.execute(httpPost);
             HttpEntity httpEntity = httpResponse.getEntity();

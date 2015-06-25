@@ -1,0 +1,159 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.myprojectetudiant.ResultatActivity"
+    tools:ignore="MergeRootFrame" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal" >
+
+            <TextView
+                android:id="@+id/resultxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Voir résultat "
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/mentionTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/notetxt"
+                android:layout_below="@+id/notetxt"
+                android:layout_marginTop="40dp"
+                android:text="Mention :" />
+
+            <TextView
+                android:id="@+id/numrepjustTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/mentionTxt"
+                android:layout_below="@+id/mentionTxt"
+                android:layout_marginTop="27dp"
+                android:text="reponses justes :" />
+
+            <TextView
+                android:id="@+id/numrepfauxTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/numrepjustTxt"
+                android:layout_below="@+id/numrepjustTxt"
+                android:layout_marginTop="36dp"
+                android:text="reponses fausses :" />
+
+            <TextView
+                android:id="@+id/mentionInput"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/mentionTxt"
+                android:layout_alignLeft="@+id/noteInput"
+                android:text="Text"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/reponsejustInput"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/numrepjustTxt"
+                android:layout_alignRight="@+id/mentionInput"
+                android:text=" Text"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/reponsefauxInput"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/numrepfauxTxt"
+                android:layout_alignBottom="@+id/numrepfauxTxt"
+                android:layout_alignLeft="@+id/reponsejustInput"
+                android:text=" Text"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/rapiditeTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/numrepfauxTxt"
+                android:layout_below="@+id/reponsefauxInput"
+                android:layout_marginTop="36dp"
+                android:text="Rapidité de répondre :" />
+
+            <TextView
+                android:id="@+id/noteInput"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/notetxt"
+                android:layout_toRightOf="@+id/terminer"
+                android:text=" Text"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <Button
+                android:id="@+id/terminer"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="16dp"
+                android:layout_toRightOf="@+id/linearLayout1"
+                android:text="Terminer" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="48dp" >
+
+                <ImageView
+                    android:id="@+id/succesechec"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/exam" />
+
+                <TextView
+                    android:id="@+id/succesechecTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TextView" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/notetxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/linearLayout1"
+                android:layout_below="@+id/linearLayout1"
+                android:layout_marginTop="14dp"
+                android:text="Note :" />
+
+            <TextView
+                android:id="@+id/rapiditeInput"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/mentionInput"
+                android:layout_alignTop="@+id/rapiditeTxt"
+                android:text=" Text"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</FrameLayout>
+

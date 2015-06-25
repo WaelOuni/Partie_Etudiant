@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import rnu.iit.waelgroup.student.Adapters.MySubjectsAdapter;
 import rnu.iit.waelgroup.student.Models.Course;
 import rnu.iit.waelgroup.student.Models.JsonParser;
+import rnu.iit.waelgroup.student.Util.OnlineChecker;
 
 /**
  * A fragment representing a list of Items.
@@ -92,15 +93,22 @@ public class CoursesFragment extends Fragment implements AbsListView.OnItemClick
 
         yourJsonStringUrl=getString(R.string.url_base_student)+"allcourses.php";
 
-        if(load) {
-            AsyncTaskParseJson dlTask = new AsyncTaskParseJson();
+        OnlineChecker oc = new OnlineChecker();
 
-            dlTask.execute(LoginActivity.yourJsonStringUrl);
+        if (load) {
+            if (oc.isOnline(getActivity())) {
+                AsyncTaskParseJson dlTask = new AsyncTaskParseJson();
 
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+                dlTask.execute(LoginActivity.yourJsonStringUrl);
+
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+            } else {
+                Toast.makeText(getActivity(),"Network isn't available", Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -226,17 +234,13 @@ public class CoursesFragment extends Fragment implements AbsListView.OnItemClick
 
         @Override
         protected void onPreExecute() {
-
         }
 
         @Override
         protected String doInBackground(String... arg0) {
-
             try {
-
                 // instantiate our json parser
                 JsonParser jParser = new JsonParser();
-
                 Log.i("test json object ", "test");
                 // get json string from url
                 JSONObject json = jParser.getJSONFromUrl(getString(R.string.url_base_student) + "/allcourses.php", null);
@@ -254,17 +258,13 @@ public class CoursesFragment extends Fragment implements AbsListView.OnItemClick
                     subject = c.getString("name_subject");
                     if (idCourse!=0)
                         courses.add(new Course(idCourse,name,description, url,teacher,dateDepo,subject));
-
                     returnString += "\n\t"+name+":"+description+":"+url+":"+teacher+":"+dateDepo+":"+subject;
                 }
-
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
             return returnString;
         }
-
 
         @Override
         protected void onPostExecute(String str) {

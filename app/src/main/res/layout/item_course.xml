@@ -5,68 +5,144 @@
     android:weightSum="1">
 
     <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:weightSum="1" >
-
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="150dp"
-            android:layout_gravity="center|center_vertical"
-            android:id="@+id/courseIcon"
-            android:src="@android:drawable/ic_menu_sort_alphabetically" />
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="New Text"
-                android:textColor="#ff000000"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:id="@+id/course_name"
-                android:layout_marginTop="20dp"
-                />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Medium Text"
-                android:textColor="#ff828380"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/date_depo_course"
-                android:layout_marginTop="10dp"
-                />
-
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:weightSum="1">
 
-        <Button
-            android:layout_width="177dp"
-            android:layout_height="60dp"
-            android:id="@+id/view_course"
-            android:background="@drawable/view_course_btn"
-            android:layout_weight="0.83" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border_shadow"
+            android:weightSum="1"
+            android:layout_marginBottom="5dp">
 
-        <Button
-            android:layout_width="177dp"
-            android:layout_height="60dp"
-            android:id="@+id/download_course"
-            android:background="@drawable/downlaod_btn"
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="111dp"
+                android:layout_gravity="center_horizontal">
 
-            android:layout_marginLeft="20dp"
-            android:layout_weight="0.15" />
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:background="@drawable/icon_course"
+                        android:layout_weight="0.00"
+                        android:layout_margin="5dp" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:text="MA"
+                            android:fontFamily="sans-serif-light"
+                            android:textSize="25dp"
+                            android:textColor="#FFF"
+                            android:id="@+id/course_icon"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="10dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:weightSum="1">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:text="Mathematique"
+                            android:fontFamily="sans-serif-light"
+                            android:textSize="20dp"
+                            android:shadowColor="#000"
+                            android:id="@+id/course_name"
+                            android:layout_marginTop="1dp"
+                            android:visibility="visible"
+                            />
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:weightSum="1"
+                            android:layout_weight="0.19"
+                            android:layout_gravity="center_horizontal">
+
+                            <ImageView
+                                android:layout_width="12dp"
+                                android:layout_height="12dp"
+                                android:id="@+id/imageView8"
+                                android:background="@drawable/icon_upload_dark"
+                                android:layout_gravity="right" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceLarge"
+                                android:text="17/06/2015"
+                                android:fontFamily="sans-serif-light"
+                                android:textSize="13dp"
+                                android:textColor="#A3A3A3"
+                                android:id="@+id/date_depo_course"
+                                android:layout_gravity="right"
+                                android:layout_weight="0.17"
+                                android:layout_marginRight="2dp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:weightSum="1"
+                    android:layout_gravity="center_vertical">
+
+                    <Button
+                        android:layout_width="151dp"
+                        android:layout_height="39dp"
+                        android:id="@+id/view_course"
+                        android:textColor="#FFF"
+                        android:background="@drawable/btn_view2"
+                        android:layout_weight="0.42"
+                        android:text="View"
+                        android:layout_marginLeft="7dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginRight="7dp"
+                        android:layout_marginBottom="5dp" />
+
+                    <Button
+                        android:layout_width="151dp"
+                        android:layout_height="39dp"
+                        android:id="@+id/download_course"
+                        android:textColor="#FFF"
+                        android:background="@drawable/btn_download2"
+                        android:layout_weight="0.42"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="Download"
+                        android:layout_marginRight="2dp" />
+                </LinearLayout>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/courseIcon"
+                    android:src="@android:drawable/ic_menu_sort_alphabetically" />
+
+            </LinearLayout>
+        </LinearLayout>
+
     </LinearLayout>
 
 </LinearLayout>

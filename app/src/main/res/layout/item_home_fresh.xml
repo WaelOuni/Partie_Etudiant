@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border_shadow"
+            android:weightSum="1">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="194dp"
+                android:background="@drawable/banner_news"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-light"
+                    android:textSize="35dp"
+                    android:textColor="#FFF"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="TOP COURSES"
+                    android:id="@+id/textView6" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Frensh basic"
+                    android:fontFamily="sans-serif-light"
+                    android:textSize="25dp"
+                    android:textColor="#FFF"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:id="@+id/home_name" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="By Hachem Rmida"
+                    android:fontFamily="sans-serif-light"
+                    android:textSize="15dp"
+                    android:textColor="#FFF"
+                    android:layout_marginTop="-5dp"
+                    android:layout_marginLeft="15dp"
+                    android:id="@+id/home_prof" />
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:weightSum="1">
+
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:id="@+id/imageView3"
+                        android:layout_marginLeft="15dp"
+                        android:background="@drawable/icon_upload" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="17/05/2015"
+                        android:fontFamily="sans-serif-light"
+                        android:textSize="15dp"
+                        android:textColor="#FFF"
+                        android:id="@+id/home_date" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Course of the main basics in frensh"
+                    android:fontFamily="sans-serif-light"
+                    android:textSize="12dp"
+                    android:textColor="#FFF"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginLeft="15dp"
+                    android:id="@+id/home_desc" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

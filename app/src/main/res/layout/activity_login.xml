@@ -5,8 +5,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="rnu.iit.waelgroup.student.LoginActivity">
-
+    tools:context="rnu.iit.waelgroup.student.LoginActivity"
+    android:background="@drawable/background">
     <!-- Login progress -->
     <ProgressBar android:id="@+id/login_progress" style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content" android:layout_height="wrap_content"
@@ -42,16 +42,16 @@
         <Button android:id="@+id/email_sign_in_button_Student" style="?android:textAppearanceSmall"
             android:layout_width="match_parent" android:layout_height="wrap_content"
             android:layout_marginTop="16dp" android:text="@string/action_sign_in_Student"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:backgroundTint="@color/wallet_holo_blue_light"
+            android:background="@color/wallet_holo_blue_light" />
 
     </LinearLayout>
 
     <ScrollView android:id="@+id/login_form" android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/logo_learning">
-
     </ScrollView>
-
 </LinearLayout>
 
 

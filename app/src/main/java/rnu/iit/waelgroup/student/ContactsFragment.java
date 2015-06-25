@@ -11,9 +11,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import rnu.iit.waelgroup.student.dummy.DummyContent;
-
+import rnu.iit.waelgroup.student.Util.OnlineChecker;
 /**
  * A fragment representing a list of Items.
  * <p/>
@@ -34,6 +35,7 @@ public class ContactsFragment extends Fragment implements AbsListView.OnItemClic
     private String mParam1;
     private String mParam2;
 
+    private static boolean load=true;
     private OnFragmentInteractionListener mListener;
 
     /**
@@ -73,26 +75,32 @@ public class ContactsFragment extends Fragment implements AbsListView.OnItemClic
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-        // TODO: Change Adapter to display your content
-        mAdapter = new ArrayAdapter<DummyContent.DummyItem>(getActivity(),
-                android.R.layout.simple_list_item_1, android.R.id.text1, DummyContent.ITEMS);
-    }
+        OnlineChecker oc = new OnlineChecker();
+
+        if (load) {
+            if (oc.isOnline(getActivity())) {
+
+                // TODO: Change Adapter to display your content
+                mAdapter = new ArrayAdapter<DummyContent.DummyItem>(getActivity(),
+                        android.R.layout.simple_list_item_1, android.R.id.text1, DummyContent.ITEMS);
+            } else {
+                Toast.makeText(getActivity(), "Network isn't available", Toast.LENGTH_LONG).show();
+            }
+        }
+
+        }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_contacts, container, false);
-
         // Set the adapter
         mListView = (AbsListView) view.findViewById(android.R.id.list);
         ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
-
         // Set OnItemClickListener so we can be notified on item clicks
         mListView.setOnItemClickListener(this);
-
         return view;
     }
-
 
     @Override
     public void onAttach(Activity activity) {
@@ -110,7 +118,6 @@ public class ContactsFragment extends Fragment implements AbsListView.OnItemClic
         super.onDetach();
         mListener = null;
     }
-
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -134,7 +141,9 @@ public class ContactsFragment extends Fragment implements AbsListView.OnItemClic
         }
     }
 
-    /**
+
+
+            /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that

@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
     <!--
  To retrieve OAuth 2.0 tokens or invalidate tokens to disconnect a user. This disconnect
      option is required to comply with the Google+ Sign-In developer policies
@@ -20,8 +21,12 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        <activity android:name=".QuickPrefsActivity" android:label="@string/app_name"/>
-        <activity android:name=".ThemePrefsActivity" android:label="@string/app_name"/>
+        <activity
+            android:name=".QuickPrefsActivity"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".ThemePrefsActivity"
+            android:label="@string/app_name" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" >
@@ -57,6 +62,48 @@
             android:label="@string/title_activity_list_courses" >
         </activity>
 
+
+        <activity
+            android:name=".ResultatTest"
+            android:label="Test's result" >
+        </activity>
+        <activity
+            android:name=".ResultatActivity"
+            android:label="Resultat's activity" >
+        </activity>
+        <activity
+            android:name=".LancerTest"
+            android:label="@string/title_activity_lancer_test" >
+        </activity>
+        <activity
+            android:name=".Q1"
+            android:label="Question 1" >
+        </activity>
+        <activity
+            android:name=".Q2"
+            android:label="Question 2" >
+        </activity>
+        <activity
+            android:name=".Q3"
+            android:label="Question 3" >
+        </activity>
+        <activity
+            android:name=".Q4"
+            android:label="Question 4" >
+        </activity>
+        <activity
+            android:name=".Q5"
+            android:label="Question 5" >
+        </activity>
+        <activity
+            android:name=".ChargementTest"
+            android:label="Test's loading" >
+        </activity>
+        <activity
+            android:name=".ResultatFinTest"
+            android:label="resultat_fin_test" >
+        </activity>
+
         <provider
             android:name=".myCustomProvider"
             android:authorities="rnu.iit.waelgroup.student.myCustomProvider" >
@@ -66,6 +113,11 @@
             android:name=".ShowSettingsActivity"
             android:label="@string/title_activity_show_settings" >
         </activity>
+
+        <service
+            android:name=".EventService"
+            android:exported="false" >
+        </service>
     </application>
 
 </manifest>

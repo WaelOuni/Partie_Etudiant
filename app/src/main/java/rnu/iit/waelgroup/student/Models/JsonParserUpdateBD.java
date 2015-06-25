@@ -34,18 +34,11 @@ public class JsonParserUpdateBD {
 
             httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
-
             Log.i(nameValuePairs.get(0).getName(), nameValuePairs.get(0).getValue());
 
-            Log.i(nameValuePairs.get(1).getName(), nameValuePairs.get(1).getValue());
-
-            //HttpResponse httpResponse =
+         //   Log.i(nameValuePairs.get(9).getName(), nameValuePairs.get(9).getValue());
 
             httpClient.execute(httpPost);
-
-            //HttpEntity httpEntity = httpResponse.getEntity();
-
-            // is = httpEntity.getContent();
 
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();

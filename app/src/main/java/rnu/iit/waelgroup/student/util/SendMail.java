@@ -1,4 +1,4 @@
-package rnu.iit.waelgroup.student.util;
+package rnu.iit.waelgroup.student.Util;
 
 import android.content.Context;
 import android.content.Intent;

@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -35,6 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import rnu.iit.waelgroup.student.Models.JsonParser;
+import rnu.iit.waelgroup.student.Util.OnlineChecker;
 
 
 /**
@@ -100,6 +102,28 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         });
 
              Button mEmailSignInButtonStudent = (Button) findViewById(R.id.email_sign_in_button_Student);
+
+
+        TranslateAnimation trans1 = new TranslateAnimation(-200, -150, 200, 100);
+        trans1.setStartOffset(50);
+        trans1.setFillAfter(true);
+        trans1.setDuration(200);
+        this.findViewById(R.id.email_sign_in_button_Student).startAnimation(trans1);
+        TranslateAnimation trans2 = new TranslateAnimation(-150, -50, 0, 50);
+        trans1.setStartOffset(250);
+
+        trans2.setFillAfter(true);
+        trans2.setDuration(200);
+        this.findViewById(R.id.email_sign_in_button_Student).startAnimation(trans2);
+
+
+        TranslateAnimation trans3 = new TranslateAnimation(50, 0, 50, 0);
+        trans3.setStartOffset(450);
+
+        trans3.setFillAfter(true);
+        trans3.setDuration(200);
+        this.findViewById(R.id.email_sign_in_button_Student).startAnimation(trans3);
+
         mEmailSignInButtonStudent.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -161,8 +185,15 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
 
-            AsyncTaskParseJson dlTask = new AsyncTaskParseJson();
-          dlTask.execute(LoginActivity.yourJsonStringUrl);
+
+            OnlineChecker oc = new OnlineChecker();
+
+                if ( oc.isOnline(getApplicationContext())) {
+
+                    AsyncTaskParseJson dlTask = new AsyncTaskParseJson();
+                    dlTask.execute(LoginActivity.yourJsonStringUrl);
+
+
 
              Log.i("log_tag", " successful connexion with Database ");
             Log.i("log_tag", getString(R.string.url_base_student));
@@ -172,6 +203,12 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
 
+                }
+                else {
+                    Toast.makeText(this,"Network isn't available",
+                            Toast.LENGTH_LONG).show();
+
+                }
         }
     }
 

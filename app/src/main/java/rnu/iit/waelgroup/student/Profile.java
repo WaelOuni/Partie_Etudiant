@@ -5,6 +5,8 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Fragment;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -30,7 +32,8 @@ import java.util.ArrayList;
 import rnu.iit.waelgroup.student.Models.Etudiant;
 import rnu.iit.waelgroup.student.Models.JsonParser;
 import rnu.iit.waelgroup.student.Models.JsonParserUpdateBD;
-import rnu.iit.waelgroup.student.util.SendMail;
+import rnu.iit.waelgroup.student.Util.BitmapAdaption;
+import rnu.iit.waelgroup.student.Util.SendMail;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -149,10 +152,14 @@ public class Profile extends android.support.v4.app.Fragment {
         phoneEdit = (EditText) view.findViewById(R.id.phoneEdit);
         classEdit = (EditText) view.findViewById(R.id.classEdit);
         btn = (ImageView) view.findViewById(R.id.mytof);
+        Bitmap icon = BitmapFactory.decodeResource(getActivity().getResources(),
+                R.drawable.profile);
+
         updateBtn = (Button) view.findViewById(R.id.updateProfile);
+        icon = BitmapAdaption.getCroppedBitmap(icon, 196);
+        btn.setImageBitmap(icon);
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(int id) {
         if (mListener != null) {
             mListener.onFragmentInteraction(id);

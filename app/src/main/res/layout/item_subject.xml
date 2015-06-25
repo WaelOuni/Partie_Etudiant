@@ -5,34 +5,69 @@
     android:weightSum="1">
 
     <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
-
-        <ImageView
-            android:layout_width="127dp"
-            android:layout_height="81dp"
-            android:id="@+id/imageView"
-            android:src="@drawable/common_signin_btn_icon_focus_dark" />
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="92dp">
+            android:layout_height="wrap_content"
+            android:background="@drawable/border_shadow"
+            android:layout_margin="10dp"
+            android:layout_marginLeft="7dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginRight="7dp"
+            android:layout_marginBottom="7dp"
+            android:weightSum="1" >
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="New Text"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:id="@+id/subject_name" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/icon_course"
+                android:layout_weight="0.01"
+                android:layout_margin="10dp" >
 
-            <TextView
-                android:layout_width="125dp"
-                android:layout_height="wrap_content"
-                android:text="Medium Text"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/teacher_name" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="MA"
+                    android:fontFamily="sans-serif-light"
+                    android:textSize="25dp"
+                    android:textColor="#FFF"
+                    android:id="@+id/subject_icon"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="300dp"
+                android:layout_height="match_parent" >
+
+                <TextView
+                    android:layout_width="287dp"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Mathematique"
+                    android:fontFamily="sans-serif-light"
+                    android:textSize="20dp"
+                    android:id="@+id/subject_name"
+                    android:layout_marginTop="10dp" />
+
+                <TextView
+                    android:layout_width="284dp"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="By Wael Ouni"
+                    android:fontFamily="sans-serif-light"
+                    android:textSize="13dp"
+                    android:textColor="#6B6B6B"
+                    android:id="@+id/teacher_name" />
+
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 

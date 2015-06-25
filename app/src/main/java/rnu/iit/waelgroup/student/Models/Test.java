@@ -80,4 +80,8 @@ public class Test {
     public void setCourses(String courses) {
         this.courses = courses;
     }
+
+    public int getId_test() {
+        return id_test;
+    }
 }

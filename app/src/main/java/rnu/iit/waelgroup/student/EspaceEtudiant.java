@@ -1,8 +1,12 @@
 package rnu.iit.waelgroup.student;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
@@ -17,10 +21,18 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import rnu.iit.waelgroup.student.Models.JsonParser;
 import rnu.iit.waelgroup.student.Models.Subject;
+import rnu.iit.waelgroup.student.Util.OnlineChecker;
 
 
 public class EspaceEtudiant extends ActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks, Profile.OnFragmentInteractionListener, HomeFragment.OnFragmentInteractionListener,
@@ -40,6 +52,14 @@ CoursesFragment.OnFragmentInteractionListener,TestsFragment.OnFragmentInteractio
     final int TESTS_FRAGENT_ID = 7000;
     final int RESULTS_FRAGENT_ID = 8000;
     final int SIGNOUT_FRAGENT_ID = 9000;
+    private ServerSocket serverSocket;
+
+    Handler updateConversationHandler;
+
+    Thread serverThread = null;
+
+    public static final int SERVERPORT = 6000;
+
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
@@ -53,19 +73,78 @@ CoursesFragment.OnFragmentInteractionListener,TestsFragment.OnFragmentInteractio
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_espace_etudiant2);
+        updateConversationHandler = new Handler();
+
+        serverThread = new Thread(new ServerThread());
+        serverThread.start();
         yourJsonStringUrl=getString(R.string.url_base_student);
         cin_key = this.getIntent().getStringExtra("session");
         Toast.makeText(getApplicationContext(), cin_key, Toast.LENGTH_LONG).show();
+        OnlineChecker oc = new OnlineChecker();
+
+        for(String str : getConnectionDetails().values())
+            Log.i("status connection :",""+str);
+
+
         if (load) {
+            if ( oc.isOnline(this) ){
             AsyncTaskParseJson dlTask = new AsyncTaskParseJson();
             dlTask.execute(LoginActivity.yourJsonStringUrl);
+        /*}
+            else {
+                Toast.makeText(this,"Network isn't available",
+                        Toast.LENGTH_LONG).show();
+                subjects.add(new Subject("test ","test"));
+                Log.i("Hors ligne","Hors ligne");
+            }*/
         }
+    }
             mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
             mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
     }
+
+
+
+    /**
+     * Get all connection details 1. Status 2. Type: Mobile/wifi 3. Sub type 4.
+     * Roaming status (Only for mobile network)
+     *
+     * @return Map<String, String>
+     */
+    private Map<String, String> getConnectionDetails() {
+        Map<String, String> networkDetails = new HashMap<String, String>();
+        try {
+            ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo wifiNetwork = connectivityManager
+                    .getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+            if (wifiNetwork != null && wifiNetwork.isConnected()) {
+
+                networkDetails.put("Type", wifiNetwork.getTypeName());
+                networkDetails.put("Sub type", wifiNetwork.getSubtypeName());
+                networkDetails.put("State", wifiNetwork.getState().name());
+            }
+
+            NetworkInfo mobileNetwork = connectivityManager
+                    .getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+            if (mobileNetwork != null && mobileNetwork.isConnected()) {
+                networkDetails.put("Type", mobileNetwork.getTypeName());
+                networkDetails.put("Sub type", mobileNetwork.getSubtypeName());
+                networkDetails.put("State", mobileNetwork.getState().name());
+                if (mobileNetwork.isRoaming()) {
+                    networkDetails.put("Roming", "YES");
+                } else {
+                    networkDetails.put("Roming", "NO");
+                }
+            }
+        } catch (Exception e) {
+            networkDetails.put("Status", e.getMessage());
+        }
+        return networkDetails;
+    }
+
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
@@ -117,6 +196,7 @@ CoursesFragment.OnFragmentInteractionListener,TestsFragment.OnFragmentInteractio
             fragmentManager.beginTransaction().replace(R.id.container, objFragment).commit();
         }
     }
+
 
     public void onSectionAttached(int number) {
         Toast toast = Toast.makeText(this, "Wheeeeeee!"+ number, Toast.LENGTH_SHORT);
@@ -242,4 +322,90 @@ CoursesFragment.OnFragmentInteractionListener,TestsFragment.OnFragmentInteractio
             load = false;
         }
     }
+
+
+
+    class ServerThread implements Runnable {
+
+        public void run() {
+            Socket socket = null;
+            try {
+                serverSocket = new ServerSocket(SERVERPORT);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            while (!Thread.currentThread().isInterrupted()) {
+
+                try {
+
+                    socket = serverSocket.accept();
+                    System.out.println("en ecoute des sockets clients :) \n");
+                    CommunicationThread commThread = new CommunicationThread(socket);
+                    new Thread(commThread).start();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    class CommunicationThread implements Runnable {
+
+        private Socket clientSocket;
+
+        private BufferedReader input;
+
+        public CommunicationThread(Socket clientSocket) {
+
+            this.clientSocket = clientSocket;
+
+            try {
+
+                this.input = new BufferedReader(new InputStreamReader(this.clientSocket.getInputStream()));
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        public void run() {
+
+
+            while (!Thread.currentThread().isInterrupted()) {
+
+                try {
+
+                    String read = input.readLine();
+
+                    updateConversationHandler.post(new updateUIThread(read));
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+    }
+
+    class updateUIThread implements Runnable {
+        private String msg;
+        public updateUIThread(String str) {
+            this.msg = str;
+        }
+
+        @Override
+        public void run() {
+            Log.i("ya rabi", msg);
+            Intent test = new Intent(EspaceEtudiant.this.getApplicationContext(), LancerTest.class);
+            test.putExtra("test", msg);
+            test.putExtra("cin", cin_key);
+            startActivityForResult(test, 50);
+            //	onStop();
+
+        }
+
+    }
+
+
 }

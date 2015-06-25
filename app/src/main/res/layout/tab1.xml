@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="@dimen/space_my_linear_layout"
+            >
+
+            <include
+                android:id="@+id/tab1"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                layout="@layout/header_register" />
+        </LinearLayout>
+
+
+
+        <EditText
+            android:id="@+id/cinInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Identity number (CIN)"
+            android:layout_marginTop="@dimen/space_my_linear_layout"
+            android:inputType="number" />
+
+        <EditText
+                android:id="@+id/nomInput"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="First name"
+                android:layout_marginTop="@dimen/space_my_linear_layout"
+            android:inputType="textCapWords|textPersonName|text" />
+
+        <EditText
+                android:id="@+id/prenomInput"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Last name"
+                android:layout_marginTop="@dimen/space_my_linear_layout"
+
+            android:inputType="textCapWords|textPersonName|text" />
+
+
+        <EditText
+            android:id="@+id/numTelInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Phone number"
+            android:layout_marginTop="@dimen/space_my_linear_layout"
+            android:inputType="phone" />
+
+
+        <LinearLayout
+            android:layout_width="215dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_weight="0.14">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RadioGroup
+                android:id="@+id/radioGroup1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                >
+
+        <TextView
+            android:id="@+id/genreString"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gender :"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_marginTop="@dimen/space_my_linear_layout"
+
+            />
+
+    </RadioGroup>
+
+    <RadioButton
+        android:id="@+id/hommeRadio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:text="Male"
+        android:layout_alignBottom="@+id/radioGroup1"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="32dp"
+        android:layout_marginEnd="32dp" />
+
+    <RadioButton
+                android:id="@+id/femmeRadio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Female"
+        android:checked="false"
+        android:layout_below="@+id/hommeRadio"
+        android:layout_alignLeft="@+id/hommeRadio"
+        android:layout_alignStart="@+id/hommeRadio" />
+</RelativeLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

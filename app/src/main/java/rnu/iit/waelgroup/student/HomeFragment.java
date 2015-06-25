@@ -1,17 +1,23 @@
 package rnu.iit.waelgroup.student;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,6 +31,7 @@ import rnu.iit.waelgroup.student.Models.Home;
 import rnu.iit.waelgroup.student.Models.JsonParser;
 import rnu.iit.waelgroup.student.Models.Test;
 import rnu.iit.waelgroup.student.dummy.DummyContent;
+import rnu.iit.waelgroup.student.Util.OnlineChecker;
 
 /**
  * A fragment representing a list of Items.
@@ -42,14 +49,16 @@ public class HomeFragment extends Fragment implements AbsListView.OnItemClickLis
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     public static ArrayList<Home> homes = new ArrayList<Home>();
+    public static ArrayList<HomeItem> homesItems = new ArrayList<HomeItem>();
     static ArrayList<Course> courses;
     static ArrayList<Test> tests;
+private Cursor cursor;
     private static boolean load=true;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
     private OnFragmentInteractionListener mListener;
-
+    String[] mCol = {"NOM_ITEM_HOME", "TEACHER_ITEM_HOME", "DATE_ITEM_HOME", "TEACHER_ITEM_HOME", "DATE_ITEM_HOME", "TEACHER_ITEM_HOME", "DATE_ITEM_HOME", "TEACHER_ITEM_HOME", "DATE_ITEM_HOME"};
     /**
      * The fragment's ListView/GridView.
      */
@@ -60,7 +69,10 @@ public class HomeFragment extends Fragment implements AbsListView.OnItemClickLis
      * Views.
      */
     private MyHomeAdapter mAdapter;
-
+    /*public static final int NOM_ITEM_HOME = 0;
+    public static final int TEACHER_ITEM_HOME = 1;
+    public static final int DATE_ITEM_HOME = 2;
+*/
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -84,37 +96,57 @@ public class HomeFragment extends Fragment implements AbsListView.OnItemClickLis
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setHasOptionsMenu(true);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        OnlineChecker oc = new OnlineChecker();
 
-        if(load) {
-            AsyncTaskParseJson dlTask = new AsyncTaskParseJson();
-            dlTask.execute(LoginActivity.yourJsonStringUrl);
+        if (load) {
+            if ( oc.isOnline(getActivity())) {
+                AsyncTaskParseJson dlTask = new AsyncTaskParseJson();
+                dlTask.execute(LoginActivity.yourJsonStringUrl);
+                Log.i("tttttt","tttttt");
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            else {
+                    Toast.makeText(getActivity(),"Network isn't available", Toast.LENGTH_LONG).show();
+            }
+
+    }
+
+
+        mAdapter = new MyHomeAdapter(getActivity(),R.layout.item_home,homes);
+    }
+    public Boolean isOnline() {
+        try {
+            Process p1 = java.lang.Runtime.getRuntime().exec("ping -c 1 http://10.0.3.2/MyProjectConnect/Etudiant/authEtudiant.php");
+            int returnVal = p1.waitFor();
+            boolean reachable = (returnVal==0);
+            return reachable;
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
-
-        // TODO: Change Adapter to display your content
-        mAdapter = new MyHomeAdapter(getActivity(),R.layout.item_home, homes);
+        return false;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
         // Set the adapter
         mListView = (AbsListView) view.findViewById(R.id.list_home);
         ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
 
         // Set OnItemClickListener so we can be notified on item clicks
         mListView.setOnItemClickListener(this);
-
         return view;
     }
 
@@ -160,9 +192,8 @@ public class HomeFragment extends Fragment implements AbsListView.OnItemClickLis
 
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        public void onFragmentInteraction(int id);
+         void onFragmentInteraction(int id);
     }
-
 
     public class AsyncTaskParseJson extends AsyncTask<String, String, String> {
         final String TAG = "AsyncTaskParseJson.java";
@@ -175,6 +206,7 @@ public class HomeFragment extends Fragment implements AbsListView.OnItemClickLis
         String teacher;
         String dateDepo;
         String subject;
+/*
         int id_test;
         String level_test;
         String session_test;
@@ -182,6 +214,7 @@ public class HomeFragment extends Fragment implements AbsListView.OnItemClickLis
         int duration_test;
         String courses_test;
         int numquestchoisis;
+*/
 
         @Override
         protected void onPreExecute() {
@@ -215,8 +248,14 @@ public class HomeFragment extends Fragment implements AbsListView.OnItemClickLis
                     courses_test= c.getString("courses_test");
                     numquestchoisis= c.getInt("numquestchoisis");*/
                     //`id_test`, `subject_test`, `teacher_test`, `level_test`, `session_test`, `date_test`, `duration_test`, `courses_test`, `numquestchoisis`
+                    int id=0;
                     if (idCourse!=0)
-                        courses.add(new Course(idCourse,name,description, url,teacher,dateDepo,subject));
+
+                       homes.add(new Home(id++, new Course(idCourse, name, description, url, teacher, dateDepo, subject)));
+                     /*   homesItems.add(new HomeItem(name,
+                                teacher,
+                                dateDepo));*/
+                 //   Log.i("test home item", homes.get(0).getC().getName());
                  /*   else
                         tests.add(new Test(id_test,subject,teacher,level_test,Integer.getInteger(session_test),date_test,Integer.toString(duration_test),courses_test));*/
                     returnString += "\n\t"+name+":"+description+":"+url+":"+teacher+":"+dateDepo+":"+subject;
@@ -232,9 +271,83 @@ public class HomeFragment extends Fragment implements AbsListView.OnItemClickLis
         @Override
         protected void onPostExecute(String str) {
             load = false;
-            for (Course c : courses)
-            homes.add(new Home(c,null));
+            /*for(Home h : homes){
+                HomeItem homeItem=null ;
+                if (h.getC()!=null){
+                    homeItem = new HomeItem(h.getC().getName(),
+                h.getC().getTeacher(),
+                h.getC().getDateDepo());
+            }
+                else if (h.getT()!=null) {
+                    homeItem= new HomeItem(h.getT().getSubject(),
+                h.getT().getTeacher(),
+                h.getT().getDate());
+                }
+Log.i("test hftkkkiio",h.getC().getName());
+                homesItems.add(homeItem);
+            }*/
         }
     }
 
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        // TODO Add your menu entries here
+        inflater.inflate(R.menu.menu_home_fragment, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+
+                startActivity(new Intent(getActivity(), QuickPrefsActivity.class));
+                break;
+
+            case R.id.action_fragment:
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, HomeFragment.newInstance("Home", ""), HomeFragment.class.getName()).commit();
+                Toast.makeText(getActivity(), this.mParam1 + " is refreshed", Toast.LENGTH_LONG).show();
+                break;
+        }
+        return true;
+
+    }
+
+    public class HomeItem {
+
+        private String nom;
+        private String teacher;
+        private String date;
+
+        public HomeItem(String nom, String teacher, String date) {
+            this.nom = nom;
+            this.teacher = teacher;
+            this.date = date;
+        }
+
+        public String getNom() {
+            return nom;
+        }
+
+        public void setNom(String nom) {
+            this.nom = nom;
+        }
+
+        public String getTeacher() {
+            return teacher;
+        }
+
+        public void setTeacher(String teacher) {
+            this.teacher = teacher;
+        }
+
+        public String getDate() {
+            return date;
+        }
+
+        public void setDate(String date) {
+            this.date = date;
+        }
+    }
 }

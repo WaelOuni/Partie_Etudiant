@@ -1,17 +1,22 @@
 package rnu.iit.waelgroup.student;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -25,6 +30,7 @@ import rnu.iit.waelgroup.student.Adapters.MyResultAdapter;
 import rnu.iit.waelgroup.student.Models.JsonParserSelectedQuery;
 import rnu.iit.waelgroup.student.Models.Resultat;
 import rnu.iit.waelgroup.student.dummy.DummyContent;
+import rnu.iit.waelgroup.student.Util.OnlineChecker;
 
 /**
  * A fragment representing a list of Items.
@@ -79,17 +85,27 @@ public class ResultsFragment extends Fragment implements AbsListView.OnItemClick
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setHasOptionsMenu(true);
         yourJsonStringUrl=getString(R.string.url_base_student)+"resultattest.php";
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-        data = new ArrayList<NameValuePair>();
-        data.add(new BasicNameValuePair("cin_etudiant", EspaceEtudiant.cin_key));
+
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_results, container, false);
+        mListView = (AbsListView) view.findViewById(android.R.id.list);
+        OnlineChecker oc = new OnlineChecker();
 
         if (load) {
+            if ( oc.isOnline(getActivity())) {
+            data = new ArrayList<NameValuePair>();
+            data.add(new BasicNameValuePair("cin_etudiant", EspaceEtudiant.cin_key));
             AsyncTaskParseJson dlTask = new AsyncTaskParseJson();
             dlTask.execute();
             try {
@@ -98,19 +114,11 @@ public class ResultsFragment extends Fragment implements AbsListView.OnItemClick
                 e.printStackTrace();
             }
         }
-
+        else {
+            Toast.makeText(getActivity(),"Network isn't available", Toast.LENGTH_LONG).show();
+        }
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_results, container, false);
-
-        mAdapter = new MyResultAdapter(getActivity(),
-                R.layout.item_resultat, results);
-        // Set the adapter
-        mListView = (AbsListView) view.findViewById(android.R.id.list);
-        ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
         // Set OnItemClickListener so we can be notified on item clicks
         mListView.setOnItemClickListener(this);
 
@@ -172,6 +180,25 @@ public class ResultsFragment extends Fragment implements AbsListView.OnItemClick
         public void onFragmentInteraction(int id);
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        // TODO Add your menu entries here
+        inflater.inflate(R.menu.menu_home_fragment, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                startActivity(new Intent(getActivity(), QuickPrefsActivity.class));
+                break;
+            case R.id.action_fragment:
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, ResultsFragment.newInstance("Results", ""), ResultsFragment.class.getName()).commit();
+                Toast.makeText(getActivity(), this.mParam1 + " is refreshed", Toast.LENGTH_LONG).show();
+                break;
+        }
+        return true;
+    }
 
     public class AsyncTaskParseJson extends AsyncTask<String, String, String> {
         final String TAG = "AsyncTaskParseJson.java";
@@ -191,7 +218,6 @@ public class ResultsFragment extends Fragment implements AbsListView.OnItemClick
 
         @Override
         protected String doInBackground(String... arg0) {
-
             try {
                 // instantiate our json parser `cin_etudiant`, `numrepjust`, `numrepfalse`, `mention`, `rapidite`, ``
                 JsonParserSelectedQuery jParser = new JsonParserSelectedQuery();
@@ -221,11 +247,21 @@ public class ResultsFragment extends Fragment implements AbsListView.OnItemClick
             return returnString;
         }
 
-
         @Override
         protected void onPostExecute(String str) {
+            Log.i("cccc",""+ str);
             // Log.i("test isert test", courses_test);
             load = false;
+            if (results.isEmpty()){
+                Toast.makeText(getActivity(), "any results for you !",Toast.LENGTH_LONG).show();
+            }else
+            {
+
+                mAdapter = new MyResultAdapter(getActivity(),
+                        R.layout.item_resultat, results);
+                ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
+                // Set the adapter
+            }
         }
     }
 

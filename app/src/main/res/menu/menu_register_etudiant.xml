@@ -4,4 +4,7 @@
     tools:context="rnu.iit.waelgroup.student.RegisterEtudiant">
     <item android:id="@+id/action_settings" android:title="@string/action_settings"
         android:orderInCategory="100" app:showAsAction="never" />
+
+    <item android:id="@+id/viderChamps" android:title="Clear fields"
+        android:orderInCategory="100" app:showAsAction="never" />
 </menu>

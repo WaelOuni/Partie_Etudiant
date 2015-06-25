@@ -1,0 +1,111 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.myprojectetudiant.ResultatFinTest"
+    tools:ignore="MergeRootFrame" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@android:drawable/btn_plus" />
+
+            <TextView
+                android:id="@+id/resultfiintestTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Résultat fin de test"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.80" >
+
+            <LinearLayout
+                android:id="@+id/linearLayout1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="38dp"
+                android:layout_marginTop="31dp" >
+
+                <ImageView
+                    android:id="@+id/remarqueImg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/exam" />
+
+                <TextView
+                    android:id="@+id/remarqueTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/noteFinTestTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/linearLayout1"
+                android:layout_below="@+id/linearLayout1"
+                android:layout_marginTop="37dp"
+                android:text="Votre note est :" />
+
+            <TextView
+                android:id="@+id/noteFinTest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/noteFinTestTxt"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="46dp"
+                android:text="Medium Text"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/mentionfinTestTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/noteFinTestTxt"
+                android:layout_below="@+id/noteFinTestTxt"
+                android:layout_marginTop="51dp"
+                android:text="Votre mention est :" />
+
+            <TextView
+                android:id="@+id/mentionFinTest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/mentionfinTestTxt"
+                android:layout_alignBottom="@+id/mentionfinTestTxt"
+                android:layout_alignLeft="@+id/noteFinTest"
+                android:text="Medium Text"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <Button
+                android:id="@+id/espaceBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/mentionFinTest"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="74dp"
+                android:text="Passer à votre espace" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</FrameLayout>
+
