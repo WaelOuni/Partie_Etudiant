@@ -12,12 +12,8 @@
         <ImageView
             android:layout_width="110dp"
             android:layout_height="70dp"
-<<<<<<< HEAD
             android:id="@+id/courseIcon"
             android:layout_marginLeft="10dp"
-=======
-            android:id="@+id/imageView"
->>>>>>> parent of 38342ba... 24/04/2015
             android:src="@android:drawable/ic_menu_sort_alphabetically" />
 
         <LinearLayout
@@ -48,38 +44,23 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-<<<<<<< HEAD
-=======
-        android:layout_weight="0.29"
->>>>>>> parent of 38342ba... 24/04/2015
         android:weightSum="1">
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="60dp"
             android:id="@+id/view_course"
-<<<<<<< HEAD
             android:layout_marginLeft="10dp"
             android:background="@drawable/view_course_btn"
             android:layout_weight="0.56" />
-=======
-            android:layout_marginLeft="22dp"
-            android:layout_weight="0.15"
-            android:background="#ff00a0c0" />
->>>>>>> parent of 38342ba... 24/04/2015
 
         <Button
             android:layout_width="182dp"
             android:layout_height="60dp"
             android:id="@+id/download_course"
-<<<<<<< HEAD
             android:layout_marginLeft="20dp"
             android:background="@drawable/downlaod_btn" />
-=======
-            android:layout_marginLeft="44dp"
-            android:layout_weight="0.11"
-            android:background="#ff005da3" />
->>>>>>> parent of 38342ba... 24/04/2015
+
     </LinearLayout>
 
 </LinearLayout>
