@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="110dp"
+            android:layout_height="70dp"
+            android:id="@+id/courseIcon"
+            android:layout_marginLeft="10dp"
+            android:src="@android:drawable/ic_menu_sort_alphabetically" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="77dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Text"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:id="@+id/course_name"
+                android:layout_marginLeft="22dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Medium Text"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:id="@+id/date_depo_course"
+                android:layout_marginLeft="22dp"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:id="@+id/view_course"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/view_course_btn"
+            android:layout_weight="0.56" />
+
+        <Button
+            android:layout_width="182dp"
+            android:layout_height="60dp"
+            android:id="@+id/download_course"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/downlaod_btn" />
+
+    </LinearLayout>
+
+</LinearLayout>
