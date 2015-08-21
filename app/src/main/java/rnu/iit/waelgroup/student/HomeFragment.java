@@ -31,7 +31,7 @@ import rnu.iit.waelgroup.student.Models.Home;
 import rnu.iit.waelgroup.student.Models.JsonParser;
 import rnu.iit.waelgroup.student.Models.Test;
 import rnu.iit.waelgroup.student.dummy.DummyContent;
-import rnu.iit.waelgroup.student.Util.OnlineChecker;
+import rnu.iit.waelgroup.student.util.OnlineChecker;
 
 /**
  * A fragment representing a list of Items.
@@ -52,13 +52,12 @@ public class HomeFragment extends Fragment implements AbsListView.OnItemClickLis
     public static ArrayList<HomeItem> homesItems = new ArrayList<HomeItem>();
     static ArrayList<Course> courses;
     static ArrayList<Test> tests;
-private Cursor cursor;
     private static boolean load=true;
+    private Cursor cursor;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
     private OnFragmentInteractionListener mListener;
-    String[] mCol = {"NOM_ITEM_HOME", "TEACHER_ITEM_HOME", "DATE_ITEM_HOME", "TEACHER_ITEM_HOME", "DATE_ITEM_HOME", "TEACHER_ITEM_HOME", "DATE_ITEM_HOME", "TEACHER_ITEM_HOME", "DATE_ITEM_HOME"};
     /**
      * The fragment's ListView/GridView.
      */
@@ -190,9 +189,34 @@ private Cursor cursor;
         }
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        // TODO Add your menu entries here
+        inflater.inflate(R.menu.menu_home_fragment, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+
+                startActivity(new Intent(getActivity(), QuickPrefsActivity.class));
+                break;
+
+            case R.id.action_fragment:
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, HomeFragment.newInstance("Home", ""), HomeFragment.class.getName()).commit();
+                Toast.makeText(getActivity(), this.mParam1 + " is refreshed", Toast.LENGTH_LONG).show();
+                break;
+        }
+        return true;
+
+    }
+
+
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-         void onFragmentInteraction(int id);
+        void onFragmentInteraction(int id);
     }
 
     public class AsyncTaskParseJson extends AsyncTask<String, String, String> {
@@ -201,7 +225,7 @@ private Cursor cursor;
         int idCourse;
         String name;
         String description;
-        String returnString="";
+        String returnString = "";
         String url;
         String teacher;
         String dateDepo;
@@ -229,8 +253,8 @@ private Cursor cursor;
                 Log.i("test json object ", "test");
                 // get json string from url
                 JSONObject json = jParser.getJSONFromUrl(getString(R.string.url_base_student) + "/allcourses.php", null);
-                dataJsonArr= json.getJSONArray("auth");
-                for(int i=0;i<dataJsonArr.length();i++){
+                dataJsonArr = json.getJSONArray("auth");
+                for (int i = 0; i < dataJsonArr.length(); i++) {
                     JSONObject c = dataJsonArr.getJSONObject(i);
                     // Storing each json item in variable
                     idCourse = c.getInt("id_course");
@@ -248,17 +272,17 @@ private Cursor cursor;
                     courses_test= c.getString("courses_test");
                     numquestchoisis= c.getInt("numquestchoisis");*/
                     //`id_test`, `subject_test`, `teacher_test`, `level_test`, `session_test`, `date_test`, `duration_test`, `courses_test`, `numquestchoisis`
-                    int id=0;
-                    if (idCourse!=0)
+                    int id = 0;
+                    if (idCourse != 0)
 
-                       homes.add(new Home(id++, new Course(idCourse, name, description, url, teacher, dateDepo, subject)));
+                        homes.add(new Home(id++, new Course(idCourse, name, description, url, teacher, dateDepo, subject)));
                      /*   homesItems.add(new HomeItem(name,
                                 teacher,
                                 dateDepo));*/
-                 //   Log.i("test home item", homes.get(0).getC().getName());
+                    //   Log.i("test home item", homes.get(0).getC().getName());
                  /*   else
                         tests.add(new Test(id_test,subject,teacher,level_test,Integer.getInteger(session_test),date_test,Integer.toString(duration_test),courses_test));*/
-                    returnString += "\n\t"+name+":"+description+":"+url+":"+teacher+":"+dateDepo+":"+subject;
+                    returnString += "\n\t" + name + ":" + description + ":" + url + ":" + teacher + ":" + dateDepo + ":" + subject;
                 }
 
             } catch (JSONException e) {
@@ -287,31 +311,6 @@ Log.i("test hftkkkiio",h.getC().getName());
                 homesItems.add(homeItem);
             }*/
         }
-    }
-
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        // TODO Add your menu entries here
-        inflater.inflate(R.menu.menu_home_fragment, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_settings:
-
-                startActivity(new Intent(getActivity(), QuickPrefsActivity.class));
-                break;
-
-            case R.id.action_fragment:
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, HomeFragment.newInstance("Home", ""), HomeFragment.class.getName()).commit();
-                Toast.makeText(getActivity(), this.mParam1 + " is refreshed", Toast.LENGTH_LONG).show();
-                break;
-        }
-        return true;
-
     }
 
     public class HomeItem {

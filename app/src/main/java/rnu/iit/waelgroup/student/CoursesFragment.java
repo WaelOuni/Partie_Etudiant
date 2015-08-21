@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import rnu.iit.waelgroup.student.Adapters.MySubjectsAdapter;
 import rnu.iit.waelgroup.student.Models.Course;
 import rnu.iit.waelgroup.student.Models.JsonParser;
-import rnu.iit.waelgroup.student.Util.OnlineChecker;
+import rnu.iit.waelgroup.student.util.OnlineChecker;
 
 /**
  * A fragment representing a list of Items.

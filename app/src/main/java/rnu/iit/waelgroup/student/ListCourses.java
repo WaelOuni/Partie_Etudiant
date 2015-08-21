@@ -24,11 +24,13 @@ import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import rnu.iit.waelgroup.student.Adapters.ClickableListAdapter;
 import rnu.iit.waelgroup.student.Models.Course;
-import rnu.iit.waelgroup.student.Util.OnlineChecker;
+import rnu.iit.waelgroup.student.util.OnlineChecker;
 
 public class ListCourses extends ActionBarActivity implements LoaderManager.LoaderCallbacks<Cursor>,AdapterView.OnItemClickListener {
 

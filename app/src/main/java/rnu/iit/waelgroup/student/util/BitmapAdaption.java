@@ -1,4 +1,4 @@
-package rnu.iit.waelgroup.student.Util;
+package rnu.iit.waelgroup.student.util;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;

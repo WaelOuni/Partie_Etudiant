@@ -32,8 +32,8 @@ import java.util.ArrayList;
 import rnu.iit.waelgroup.student.Models.Etudiant;
 import rnu.iit.waelgroup.student.Models.JsonParser;
 import rnu.iit.waelgroup.student.Models.JsonParserUpdateBD;
-import rnu.iit.waelgroup.student.Util.BitmapAdaption;
-import rnu.iit.waelgroup.student.Util.SendMail;
+import rnu.iit.waelgroup.student.util.BitmapAdaption;
+import rnu.iit.waelgroup.student.util.SendMail;
 
 /**
  * A simple {@link Fragment} subclass.

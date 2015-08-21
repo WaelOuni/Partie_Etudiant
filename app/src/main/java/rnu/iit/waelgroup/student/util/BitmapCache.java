@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package rnu.iit.waelgroup.student.Util;
+package rnu.iit.waelgroup.student.util;
 
 import android.graphics.Bitmap;
 import android.util.LruCache;
